@@ -1,6 +1,6 @@
 # Aplikasi Website Swalayan
 
-Repository ini dibuat untuk mempercepat pengerjaan program
+Repository ini dibuat untuk mempercepat pembuatan aplikasi website swalayan.
 
 ## Rules
 
@@ -8,22 +8,9 @@ Repository ini dibuat untuk mempercepat pengerjaan program
 - Setiap pull atau push request akan di periksa Indra dulu.
 - File2 yang boleh diubah adalah views, urls, templates dan juga file utilites.
 
-## Database
+## File settings.py
 
-Konfigurasi database pada file settings disesuaikan database masing2.
-
-```python
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dbswalayan',
-        'USER': 'root',
-        'PASSWORD': 'paswmysql',
-        'HOST': 'localhost',
-        'PORT': '3307'
-    }
-}
-```
+Untuk file settings.py tidak diupload karena menyesuaikan pengaturan komputer masing2 terutama konfigurasi databasenya. Code dari file settings.py dapat dilihat di file `settings.txt`
 
 ## Contoh Penulisan
 
