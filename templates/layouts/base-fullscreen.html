@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nama Perusahaan | {% block title %}{% endblock title %}</title>
+    <link rel="icon" href="{% static 'dist/img/logo/adminlte.png' %}" type="image/png">
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+    <!-- Css sendiri -->
+    <link rel="stylesheet" href="{% static 'dist/css/elsofinar.css' %}">
+    {% block css %}{% endblock css %}
+</head>
+
+<body class="{% block bodyclass %}{% endblock bodyclass %} bg-primary">
+
+    {% block content %}{% endblock content %}
+
+    <!-- jQuery -->
+    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    {% block js %}{% endblock js %}
+</body>
+
+</html>

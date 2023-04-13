@@ -1,0 +1,33 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Dashboard{% endblock title %}
+
+{% block css %}{% endblock css %}
+
+{% block content-title %}List Modul{% endblock content-title %}
+
+{% block content-back %}{% endblock content-back %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Default box -->
+        {% for modul in dbmodul %}
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-primary">
+                <div class="inner text-center">
+                    <h3>{{ modul.modulnama }}</h3>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-bag"></i>
+                </div>
+                <a href="{% url modul.modulnama|lower %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        {% endfor %}
+        <!-- /.card -->
+    </div>
+</div>
+{% endblock content %}
+
+{% block js %}{% endblock js %}

@@ -1,0 +1,61 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Import CSV{% endblock title %}
+
+{% block css %}{% endblock css %}
+
+{% block content-title %}Import CSV{% endblock content-title %}
+
+{% block content-back %}{% endblock content-back %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4">
+            <!-- Default box -->
+            <div class="card">
+                <!-- form start -->
+                <form action="{% url 'import_csv_post' %}" method="POST" enctype="multipart/form-data" class="form-horizontal">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="table"
+                                class="col-sm-3 col-form-label font-weight-normal text-right">Table</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" name="table" id="table" required>
+                                    <option value="" disabled selected>-- PILIH --</option>
+                                    {% for model in models %}
+                                        {% if model.app_label == 'app' and 'django' not in model.name and 'auth' not in model.name %}
+                                            <option value="{{ model.name }}">{{ model.name }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="filecsv" class="col-sm-3 col-form-label font-weight-normal text-right">File
+                                CSV</label>
+                            <div class="col-sm-9">
+                                <input type="file" class="form-control" name="filecsv" id="filecsv" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-block btn-primary">PROSES</button>
+                    </div>
+                    <!-- /.card-footer -->
+                </form>
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script>
+    $(function(){
+        {% for message in messages %}
+            toastr.{{ message.tags }}('{{ message }}')
+        {% endfor %}
+    })
+</script>
+{% endblock js %}

@@ -1,0 +1,71 @@
+{% load static %}
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="../../index3.html" class="brand-link">
+      <img src="{% static 'dist/img/logo/adminlte.png' %}" alt="logo perusahaan" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-bold text-white">Nama Perusahaan</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img style="width: 35px;height: 35px;border-radius: 50%;" src="{% static 'dist/img/user/default.png' %}" class="elevation-2" alt="foto user">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block text-white text-uppercase">User</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul style="font-size: 12px;" class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <li class="nav-item">
+                <a href="{% url 'dashboard' %}" class="nav-link menu {% if 'modul' == segment %} active {% endif %}">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>
+                    MODUL
+                    <span class="badge badge-info right"></span>
+                    </p>
+                </a>
+            </li>
+            {% for menu in dbmenu %}
+                {% if menu.menustatus == 'M' and menu.menulevel == '1' %}
+                    <li class="nav-item">
+                    <a href="{% url menu.menukontroler|lower %}" class="nav-link menu {% if menu.menukontroler|lower == segment %} active {% endif %}">
+                        <i class="nav-icon fas fa-file-alt"></i>
+                        <p>
+                        {{ menu.menunama }}
+                        <span class="badge badge-info right"></span>
+                        </p>
+                    </a>
+                    </li>
+                {% elif menu.menustatus == 'I' and menu.menulevel == '1' %}
+                    <li class="nav-item {% if menu.menukontroler|lower == parent_segment %} menu-open {% endif %}">
+                    <a href="#" class="nav-link menu {% if menu.menukontroler|lower == parent_segment %} active {% endif %}">
+                        <i class="nav-icon fas fa-folder"></i>
+                        <p>
+                        {{ menu.menunama }}
+                        <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        {% for submenu in menu.submenu %}
+                        <li class="nav-item ml-3">
+                            <a href="{% url submenu.menukontroler|lower %}" class="nav-link menu {% if submenu.menukontroler|lower == segment %} active {% endif %}">
+                            <i class="nav-icon fas fa-file-alt"></i>
+                            <p>{{ submenu.menunama }}</p>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
