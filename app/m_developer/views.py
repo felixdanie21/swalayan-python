@@ -3,11 +3,14 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from app.utilities import ambil_menu, insert_csv
+from app.decorators import user_level_required, login_required
 from app.models import Menu
 import json
 import csv
 
 
+@login_required()
+@user_level_required('0')
 def index(request):
     context = {
         'dbmenu': ambil_menu('developer'),
@@ -17,6 +20,8 @@ def index(request):
     return render(request, 'developer/index.html', context)
 
 
+@login_required()
+@user_level_required('0')
 def import_csv(request):
     models = ContentType.objects.all().order_by('model')
     context = {
@@ -28,6 +33,8 @@ def import_csv(request):
     return render(request, 'developer/import-csv.html', context)
 
 
+@login_required()
+@user_level_required('0')
 def import_csv_post(request):
     csv_file = request.FILES['filecsv']
     decoded_file = csv_file.read().decode('utf-8-sig')

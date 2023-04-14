@@ -1,0 +1,61 @@
+    /* 
+    064435
+    09644d
+    0b5c48
+    189777
+    */
+
+    .main-sidebar {
+      background-color: #064435 !important
+    }
+
+
+    .main-header {
+      background-color: #09644d !important;
+      border: 0px;
+    }
+
+    .main-footer {
+      background-color: #09644d !important;
+      border: 0px;
+    }
+
+    .content-wrapper {
+      background-color: #189777 !important
+    }
+
+
+    .bg-primary {
+      background-color: #0b5c48 !important;
+      color: white;
+    }
+
+    .btn-primary {
+      background-color: #0b5c48;
+      border-color: #0b5c48;
+      color: white;
+    }
+
+    .btn-primary:hover:not([disabled]) {
+      background-color: #064435;
+      border-color: #064435;
+      color: white;
+    }
+
+    .btn-primary:hover:disabled {
+      color: white;
+    }
+
+    .nav-link.menu.active {
+      background-color: #189777 !important;
+      color: white !important;
+    }
+
+    .nav-link.menu {
+      color: white !important;
+    }
+
+    .nav-link.menu:hover {
+      background-color: #09644d !important;
+      color: white !important;
+    }

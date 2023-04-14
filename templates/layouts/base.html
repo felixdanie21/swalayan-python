@@ -78,6 +78,13 @@
   <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
   <!-- Toastr -->
   <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
+  <script>
+      $(function(){
+          {% for message in messages %}
+              toastr.{{ message.tags }}('{{ message }}')
+          {% endfor %}
+      })
+  </script>
   {% block js %}{% endblock js %}
 </body>
 

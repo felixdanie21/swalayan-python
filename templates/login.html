@@ -1,0 +1,67 @@
+{% extends 'layouts/base-fullscreen.html' %}
+
+{% load static %}
+
+{% block title %}Login{% endblock title %}
+
+{% block css %}{% endblock css %}
+
+{% block bodyclass %}hold-transition login-page{% endblock bodyclass %}
+
+{% block content %}
+<div class="login-box">
+    <form class="mt-3" action="{% url 'login_post' %}" method="post">
+        {% csrf_token %}
+        <div style="border-radius:20px;" class="bg-light p-3 shadow">
+            <div class="text-center">
+                <img class="shadow-sm"
+                    style="width:20vh;margin-left: auto;margin-right: auto;margin-top:-12vh;border-radius:100%"
+                    src="{% static 'dist/img/logo/adminlte.png' %}" alt="">
+            </div>
+            <div class="px-3 text-center mt-3">
+                <h5 class="font-weight-bold">Nama Perusahaan</h5>
+                {% for message in messages %}
+                    {% if message.tags == 'error' %}
+                    <div class="alert alert-secondary alert-dismissible fade show font-weight-bold" role="alert">
+                        {{ message }} 
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% endif %}
+                    {% if message.tags == 'success' %}
+                    <div class="alert bg-primary alert-dismissible fade show font-weight-bold" role="alert">
+                        {{ message }} 
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="User ID" name="userid" autocomplete="off"autofocus required>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" placeholder="Password" name="password"autocomplete="off" required>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button style="border-radius:50px;" type="submit"
+                        class="btn btn-primary col-12 font-weight-bold">LOGIN</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %}
+
+{% block js %}{% endblock js %}
