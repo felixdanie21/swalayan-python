@@ -50,12 +50,4 @@
 </div>
 {% endblock content %}
 
-{% block js %}
-<script>
-    $(function(){
-        {% for message in messages %}
-            toastr.{{ message.tags }}('{{ message }}')
-        {% endfor %}
-    })
-</script>
-{% endblock js %}
+{% block js %}{% endblock js %}

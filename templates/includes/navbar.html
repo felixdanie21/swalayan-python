@@ -16,9 +16,23 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link text-white" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+        <a data-toggle="modal" data-target="#logout" class="nav-link text-white" data-widget="control-sidebar" data-slide="true" href="#" role="button">
             <i class="fas fa-sign-out-alt"></i> Keluar
         </a>
       </li>
     </ul>
-  </nav>
+</nav>
+
+<div class="modal fade bd-example-modal-sm" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title font-weight-bold mx-auto" id="exampleModalLabel">Anda Yakin Ingin Keluar?</h5>
+      </div>
+      <div class="modal-footer">
+        <a href="{% url 'logout' %}" type="button" class="btn btn-primary">YA</a>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">TIDAK</button>
+      </div>
+    </div>
+  </div>
+</div>

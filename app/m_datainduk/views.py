@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from app.decorators import login_required
 from app.utilities import ambil_menu
 
-# Create your views here.
 
-
+@login_required()
 def index(request):
     context = {
         'dbmenu': ambil_menu('c'),

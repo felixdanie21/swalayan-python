@@ -83,8 +83,7 @@ class DjangoAdminLog(models.Model):
     object_repr = models.CharField(max_length=200)
     action_flag = models.PositiveSmallIntegerField()
     change_message = models.TextField()
-    content_type = models.ForeignKey(
-        'DjangoContentType', models.DO_NOTHING, blank=True, null=True)
+    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
 
     class Meta:
@@ -353,3 +352,16 @@ class Msupplier(models.Model):
     class Meta:
         managed = False
         db_table = 'msupplier'
+
+
+class Muser(models.Model):
+    userid = models.CharField(primary_key=True, max_length=10)
+    username = models.CharField(max_length=20)
+    password = models.CharField(max_length=20)
+    userlevel = models.CharField(max_length=1)
+    userimage = models.CharField(max_length=225)
+    usertoken = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'muser'
