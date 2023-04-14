@@ -59,3 +59,19 @@
       background-color: #09644d !important;
       color: white !important;
     }
+
+    .dt-buttons .btn-secondary {
+      background-color: #0b5c48;
+      border-color: #0b5c48;
+      color: white;
+    }
+
+    .dt-buttons .btn-secondary:hover:not([disabled]) {
+      background-color: #064435;
+      border-color: #064435;
+      color: white;
+    }
+
+    .dt-buttons .btn-secondary:hover:disabled {
+      color: white;
+    }

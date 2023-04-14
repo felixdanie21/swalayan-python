@@ -27,7 +27,7 @@ def import_csv(request):
     context = {
         'dbmenu': ambil_menu('developer'),
         'parent_segment': '-',
-        'segment': 'import-csv',
+        'segment': 'import_csv',
         'models': models
     }
     return render(request, 'developer/import-csv.html', context)
@@ -44,3 +44,23 @@ def import_csv_post(request):
         insert_csv(request.POST['table'], row)
     messages.success(request, 'Berhasil Import CSV.')
     return redirect('import_csv')
+
+
+@login_required()
+def contoh_form(request):
+    context = {
+        'dbmenu': ambil_menu('developer'),
+        'parent_segment': '-',
+        'segment': 'contoh_form',
+    }
+    return render(request, 'developer/contoh-form.html', context)
+
+
+@login_required()
+def contoh_table(request):
+    context = {
+        'dbmenu': ambil_menu('developer'),
+        'parent_segment': '-',
+        'segment': 'contoh_table',
+    }
+    return render(request, 'developer/contoh-table.html', context)

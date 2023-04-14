@@ -24,6 +24,14 @@ Untuk file settings.py tidak diupload karena menyesuaikan pengaturan komputer ma
  
  # function template
  return render(request,'contoh-template.html')
+
+ # context
+ # digunakan untuk mengirim data ke template, adapun variable default:
+ context = {
+    'dbmenu': ambil_menu('a'), #  ambil_menu adalah fungsi, a adalah parameter yang berupa kode modul
+    'parent_segment': 'kontroler_induk', # parent_segment diisi dengan nama kontroler induk menu (jika tidak ada "-")
+    'segment': 'kontroler_menu',  # segment diisi dengan nama kontroler menu
+ }
 ```
 
 ## Modul Developer

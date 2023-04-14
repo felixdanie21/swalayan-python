@@ -18,6 +18,10 @@
   <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
   <!-- Toastr -->
   <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.min.css' %}">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
   <!-- Css sendiri -->
   <link rel="stylesheet" href="{% static 'dist/css/elsofinar.css' %}">
   {% block css %}{% endblock css %}
@@ -44,7 +48,9 @@
               <h1 class="font-weight-bold text-uppercase text-white">{% block content-title %}{% endblock content-title %}</h1>
             </div>
             <div class="col-sm-6">
-              {% block content-back %}{% endblock content-back %}
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item">{% block content-back %}{% endblock content-back %}</li>
+              </ol>
             </div>
           </div>
         </div><!-- /.container-fluid -->
@@ -78,6 +84,19 @@
   <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
   <!-- Toastr -->
   <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
+  <!-- DataTables  & Plugins -->
+  <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+  <script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+  <script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'plugins/jszip/jszip.min.js' %}"></script>
+  <script src="{% static 'plugins/pdfmake/pdfmake.min.js' %}"></script>
+  <script src="{% static 'plugins/pdfmake/vfs_fonts.js' %}"></script>
+  <script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+  <script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+  <script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
   <script>
       $(function(){
           {% for message in messages %}
