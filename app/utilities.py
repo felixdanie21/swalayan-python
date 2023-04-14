@@ -15,6 +15,22 @@ def ambil_menu(modulkode):
                 "menustatus": "M",
                 "menulevel": "1"
             },
+            {
+                "menukode": "D0200",
+                "menunama": "CONTOH FORM",
+                "menukontroler": "contoh_form",
+                "menuinduk": "D0000",
+                "menustatus": "M",
+                "menulevel": "1"
+            },
+            {
+                "menukode": "D0300",
+                "menunama": "CONTOH TABLE",
+                "menukontroler": "contoh_table",
+                "menuinduk": "D0000",
+                "menustatus": "M",
+                "menulevel": "1"
+            },
         ]
         return dbmenu
     else:
