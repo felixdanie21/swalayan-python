@@ -33,7 +33,7 @@
             {% for menu in dbmenu %}
                 {% if menu.menustatus == 'M' and menu.menulevel == '1' %}
                     <li class="nav-item">
-                    <a href="{% url menu.menukontroler|lower %}" class="nav-link menu {% if menu.menukode|lower == segment %} active {% endif %}">
+                    <a href="{% url menu.menukontroler|lower %}" class="nav-link menu {% if menu.menukode == segment %} active {% endif %}">
                         <i class="nav-icon fas fa-file-alt"></i>
                         <p>
                         {{ menu.menunama }}
@@ -42,8 +42,8 @@
                     </a>
                     </li>
                 {% elif menu.menustatus == 'I' and menu.menulevel == '1' %}
-                    <li class="nav-item {% if menu.menukode|lower == parent_segment %} menu-open {% endif %}">
-                    <a href="#" class="nav-link menu {% if menu.menukode|lower == parent_segment %} active {% endif %}">
+                    <li class="nav-item {% if menu.menukode == parent_segment %} menu-open {% endif %}">
+                    <a href="#" class="nav-link menu {% if menu.menukode == parent_segment %} active {% endif %}">
                         <i class="nav-icon fas fa-folder"></i>
                         <p>
                         {{ menu.menunama }}
@@ -53,7 +53,7 @@
                     <ul class="nav nav-treeview">
                         {% for submenu in menu.submenu %}
                         <li class="nav-item ml-3">
-                            <a href="{% url submenu.menukontroler|lower %}" class="nav-link menu {% if submenu.menukode|lower == segment %} active {% endif %}">
+                            <a href="{% url submenu.menukontroler|lower %}" class="nav-link menu {% if submenu.menukode == segment %} active {% endif %}">
                             <i class="nav-icon fas fa-file-alt"></i>
                             <p>{{ submenu.menunama }}</p>
                             </a>
