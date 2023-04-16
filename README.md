@@ -38,3 +38,19 @@ Untuk file settings.py tidak diupload karena menyesuaikan pengaturan komputer ma
 
 Modul developer digunakan saat tahap development saja, untuk mengakses gunakan  `/developer`
 
+## Login Required
+
+Setiap function pada views wajib ditambahkan @login_required diatas function tetapi sebelum menggunakan harus load terlebih dahulu, kurang lebih seperti ini:
+
+```python
+from app.decorators login_required
+.
+.
+.
+.
+.
+@login_required()
+def contoh_views(request):
+    .........
+```
+
