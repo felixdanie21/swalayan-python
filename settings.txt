@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'swalayan.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dbswalayan',
+        'NAME': 'posmas',
         'USER': 'root',
-        'PASSWORD': 'paswmysql',
+        'PASSWORD': 'deby12',
         'HOST': 'localhost',
-        'PORT': '3307'
+        'PORT': '3316'
     }
 }
 

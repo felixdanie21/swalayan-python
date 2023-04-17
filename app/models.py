@@ -163,6 +163,7 @@ class Mbrgjns(models.Model):
 
 
 class Mbrglok(models.Model):
+    id = models.BigAutoField(primary_key=True)
     barangkode = models.CharField(max_length=6)
     lokasikode = models.CharField(max_length=4)
     brglokket = models.CharField(max_length=10, blank=True, null=True)
@@ -214,7 +215,7 @@ class Menu(models.Model):
     class Meta:
         managed = False
         db_table = 'menu'
-        unique_together = (('modulkode', 'menukode'),)
+        unique_together = (('modulkode', 'menukode'), ('modulkode', 'menukode'),)
 
 
 class Mgroup(models.Model):
@@ -237,6 +238,7 @@ class Mgudang(models.Model):
 
 
 class Mhrgbaru(models.Model):
+    id = models.BigAutoField(primary_key=True)
     barangkode = models.CharField(max_length=6)
     supplierkode = models.CharField(max_length=4)
     hrgbarutgl = models.DateField()
@@ -260,6 +262,7 @@ class Mhrgcus(models.Model):
 
 
 class Mhrgmod(models.Model):
+    id = models.BigAutoField(primary_key=True)
     barangkode = models.CharField(max_length=6)
     hrgbarutglnota = models.DateField()
     hrgmodnota = models.FloatField()
@@ -304,6 +307,7 @@ class Modul(models.Model):
 
 
 class Mpabrik(models.Model):
+    id = models.BigAutoField(primary_key=True)
     pabrikkode = models.CharField(max_length=5)
     pabriknama = models.CharField(max_length=30)
 

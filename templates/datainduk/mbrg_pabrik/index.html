@@ -1,0 +1,60 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Data Satuan{% endblock title %}
+
+{% block css %}{% endblock css %}
+
+{% block content-title %}Data Satuan{% endblock content-title %}
+
+{% block content-back %}{% endblock content-back %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div style="overflow: auto;height: 78vh" class="col-sm-12">
+            <table id="idtable" style="font-size:16px" class="table table-sm table-bordered bg-light">
+                <thead class="bg-primary" style="position: sticky;top:0;z-index:2;">
+                    <tr>
+                        <th class="text-center text-uppercase align-middle">Kode pabrik</th>
+                        <th class="text-center text-uppercase align-middle">Nama pabrik</th>
+                        <th class="text-center text-uppercase align-middle">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for pabrik in mpabrik %}
+                    <tr>
+                        <td>{{pabrik.pabrikkode}}</td>
+                        <td>{{pabrik.pabriknama}}</td>
+                        <td><a href="{% url 'mbrg_pabrik_form' 'edit'%}?pabrikkode={{pabrik.pabrikkode}}" class="btn btn-primary">Edit</a>
+                            <a onclick="return confirm('Apakah data ini akan di hapus ? {{ pabrik.pabrikkode }}')" href="{% url 'mbrg_pabrik_delete' pabrik.pabrikkode %}" class="btn btn-danger">Delete</a></td>
+                    </tr>
+                    {%endfor%}
+                                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script>
+    $(function () {
+        $("#idtable").DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": false,
+            "info": false,
+            "autoWidth": false,
+            "responsive": true,
+            "buttons": [{
+                className: 'mr-2 btn-primary',
+                text: 'TAMBAH <i class="fas fa-plus" ></i>',
+                action: function(e, dt, node, config) {
+                    window.location.href = '{% url "mbrg_pabrik_form" "tambah"%}'
+                }
+            },"csv", "excel", "pdf", "print"]
+        }).buttons().container().appendTo('#idtable_wrapper .col-md-6:eq(0)');
+    });
+</script>
+{% endblock js %}
