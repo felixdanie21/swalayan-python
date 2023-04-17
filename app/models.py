@@ -307,8 +307,7 @@ class Modul(models.Model):
 
 
 class Mpabrik(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    pabrikkode = models.CharField(max_length=5)
+    pabrikkode = models.CharField(primary_key=True, max_length=5)
     pabriknama = models.CharField(max_length=30)
 
     class Meta:

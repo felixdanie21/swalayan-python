@@ -5,7 +5,10 @@ from . import views
 urlpatterns = [
     path('', views.index, name='data induk'),
     path('mbrg_databarang', blank, name='mbrg_databarang'),
-    path('mbrg_group', blank, name='mbrg_group'),
+    path('mbrg_group', views.mbrg_group, name='mbrg_group'),
+    path('mbrg_group_form/<str:method>', views.mbrg_group_form, name='mbrg_group_form'),
+    path('mbrg_group_post/<str:method>', views.mbrg_group_post, name='mbrg_group_post'),
+    path('mbrg_group_delete/<str:groupkode>',views.mbrg_group_delete, name='mbrg_group_delete'),
     path('mbrg_jenisbrg', views.mbrg_jenisbrg, name='mbrg_jenisbrg'),
     path('mbrg_jenisbrg_form/<str:method>',views.mbrg_jenisbrg_form,name='mbrg_jenisbrg_form'),
     path('mbrg_jenisbrg_post/<str:method>', views.mbrg_jenisbrg_post, name='mbrg_jenisbrg_post'),
