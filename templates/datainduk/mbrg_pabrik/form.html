@@ -1,0 +1,96 @@
+{% extends 'layouts/base.html' %} 
+{% block title %}{{judul}}{% endblock title %}
+{% block css %}{% endblock css %}
+{% block content-title %}{{judul}}{% endblock content-title %} 
+{% block content-back %}<a href="{% url 'mbrg_jenisbrg' %}"class="text-white"><i class="fas fa-arrow-alt-circle-left"></i> Kembali</a>{% endblock content-back %}
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-4">
+      <!-- Default box -->
+      <div class="card">
+        <!-- form start -->
+        <form action="{% url 'mbrg_jenisbrg_post' method %}" method="POST" enctype="multipart/form-data" class="form-horizontal">
+          {% csrf_token %}
+          <div class="card-body">
+            <div class="form-group row">
+              <label
+                for="input"
+                class="col-sm-4 col-form-label font-weight-normal text-sm-right"
+                >Kode Jenis Barang</label
+              >
+              <div class="col-sm-8">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="brgjnskode"
+                  id="brgjnskode"
+                  maxlength="4"
+                  required
+                />
+              </div>
+            </div>
+          <div class="card-body">
+            <div class="form-group row">
+              <label
+                for="input"
+                class="col-sm-4 col-form-label font-weight-normal text-sm-right"
+                >Nama Jenis Barang</label
+              >
+              <div class="col-sm-8">
+                <input
+                  type="text"
+                  class="form-control "
+                  name="brgjnsnama"
+                  id="brgjnsnama"
+                  maxlength="40"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label
+                for="input"
+                class="col-sm-4 col-form-label font-weight-normal text-sm-right"
+                >Kode Group</label
+              >
+              <div class="col-sm-8">
+                <input
+                  type="text"
+                  class="form-control "
+                  name="groupkode"
+                  id="groupkode"
+                  maxlength="2"
+                  required
+                />
+              </div>
+            </div>
+            <hr />
+            <button type="submit" class="btn btn-block btn-primary">
+              PROSES
+            </button>
+          </div>
+          <!-- /.card-footer -->
+        </form>
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
+</div>
+<script>
+window.onload=function (){
+    {% if method == 'edit' %}
+        var brgjnskode = document.getElementById('brgjnskode');
+        var brgjnsnama = document.getElementById('brgjnsnama');
+        var groupkode = document.getElementById('groupkode');
+
+        brgjnskode.setAttribute('readonly','true');
+        brgjnskode.value = '{{data.brgjnskode}}';
+        brgjnsnama.value = '{{data.brgjnsnama}}';
+        groupkode.value = '{{data.groupkode}}';
+
+    {% endif %}
+}
+
+</script>
+{% endblock content %} {% block js %}{% endblock js %}
