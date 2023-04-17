@@ -15,20 +15,18 @@
             <table id="idtable" style="font-size:16px" class="table table-sm table-bordered bg-light">
                 <thead class="bg-primary" style="position: sticky;top:0;z-index:2;">
                     <tr>
-                        <th class="text-center text-uppercase align-middle">Kode Jenis Barang</th>
-                        <th class="text-center text-uppercase align-middle">Nama Jenis Barang</th>
-                        <th class="text-center text-uppercase align-middle">Kode Group</th>
+                        <th class="text-center text-uppercase align-middle">Kode group</th>
+                        <th class="text-center text-uppercase align-middle">Nama group</th>
                         <th class="text-center text-uppercase align-middle">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {%for jenis in mjenis %}
+                    {%for group in mgroup %}
                     <tr>
-                        <td>{{jenis.brgjnskode}}</td>
-                        <td>{{jenis.brgjnsnama}}</td>
-                        <td>{{jenis.groupkode}}</td>
-                        <td><a href="{% url 'mbrg_jenisbrg_form' 'edit'%}?brgjnskode={{jenis.brgjnskode}}" class="btn btn-primary">Edit</a>
-                            <a onclick="return confirm('Apakah data ini akan di hapus ? {{ jenis.brgjnskode }}')" href="{% url 'mbrg_jenisbrg_delete' jenis.brgjnskode %}" class="btn btn-danger">Delete</a></td>
+                        <td>{{group.groupkode}}</td>
+                        <td>{{group.groupnama}}</td>
+                        <td><a href="{% url 'mbrg_group_form' 'edit'%}?groupkode={{group.groupkode}}" class="btn btn-primary">Edit</a>
+                            <a onclick="return confirm('Apakah data ini akan di hapus ? {{ group.groupkode }}')" href="{% url 'mbrg_group_delete' group.groupkode %}" class="btn btn-danger">Delete</a></td>
                     </tr>
                     {%endfor%}
                                 </tbody>
@@ -53,7 +51,7 @@
                 className: 'mr-2 btn-primary',
                 text: 'TAMBAH <i class="fas fa-plus" ></i>',
                 action: function(e, dt, node, config) {
-                    window.location.href = '{% url "mbrg_jenisbrg_form" "tambah"%}'
+                    window.location.href = '{% url "mbrg_group_form" "tambah"%}'
                 }
             },"csv", "excel", "pdf", "print"]
         }).buttons().container().appendTo('#idtable_wrapper .col-md-6:eq(0)');
