@@ -1,0 +1,294 @@
+{% extends 'layouts/base.html' %} 
+{% block title %}{{judul}}{% endblock title %}
+{% block css %}{% endblock css %}
+{% block content-title %}{{judul}}{% endblock content-title %} 
+{% block content-back %}<a href="{% url 'mbrg_databarang' %}"class="text-white"><i class="fas fa-arrow-alt-circle-left"></i> Kembali</a>{% endblock content-back %}
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-10">
+      <!-- Default box -->
+      <div class="card">
+        <!-- form start -->
+        <form action="{% url 'mbrg_databarang_post' method %}" method="POST" enctype="multipart/form-data" class="form-horizontal">
+          {% csrf_token %}
+          <div class="card-body">
+              <div class="row">
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-4 col-form-label font-weight-normal text-sm-right"
+                >Nama Barang</label>
+                
+              <div class="col-sm-8">
+              <input  type="text"
+                  class="form-control "
+                  name="brgnama"
+                  id="brgnama"
+                  maxlength="40"
+                  rows="3"
+                  required >
+              </div>
+              </div>
+              </div>
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-3 col-form-label font-weight-normal text-sm-right"
+              >Kode  Barang</label>
+              <div class="col-sm-2"> 
+              <input type="text"
+                  class="form-control"
+                  name="brgkode"
+                  id="brgkode"
+                  maxlength="4"
+                  required >
+              </div>
+              </div>
+              </div>
+              </div> 
+              <div class="row">
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-4 col-form-label font-weight-normal text-sm-right"
+                >Barcode Barang</label>
+                
+              <div class="col-sm-5">
+              <input  type="text"
+                  class="form-control "
+                  name="barangbarcode"
+                  id="barangbarcode"
+                  maxlength="20"
+                  required
+                  >
+              </div>
+              </div>
+              </div>
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-3 col-form-label font-weight-normal text-sm-right"
+              >Kode Jenis Barang</label>
+              <div class="col-sm-4"> 
+              <select class="form-control"name="brgjnskode" id="brgjnskode"required>
+                <option value=""disabled selected>--PILIH--</option>
+                  {% for jns in jenisbarang %}
+                <option value="{{ jns.brgjnskode }}">{{ jns.brgjnskode }}</option>
+                  {%endfor%}
+              </select>
+              </div>
+              </div>
+              </div>
+              </div> 
+              
+                <div class="row">
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-4 col-form-label font-weight-normal text-sm-right"
+                >Harga Sebelum PPN </label>
+                
+              <div class="col-sm-4">
+              <input  type="text"
+                  class="form-control "
+                  name="baranghrgbppn"
+                  id="baranghrgbppn"
+                  required
+                  >
+              </div>
+              </div>
+              </div>
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-3 col-form-label font-weight-normal text-sm-right"
+              >Kode satuan</label>
+              <div class="col-sm-3"> 
+              <select class="form-control"name="satuankode" id="satuankode"required>
+                <option value=""disabled selected>--PILIH--</option>
+                {%for satuanbarangs in satuanbarang %}
+                <option value="{{satuanbarangs.satuankode}}" >{{satuanbarangs.satuankode}}</option>
+                {%endfor%}
+              </select>
+              </select>
+              </div>
+              </div>
+              </div>
+              </div>
+              <div class="row">
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-4 col-form-label font-weight-normal text-sm-right"
+                >Harga Sesudah PPN </label>
+                
+              <div class="col-sm-3">
+              <input  type="text"
+                  class="form-control "
+                  name="baranghrgsppn"
+                  id="baranghrgsppn"
+                  required >
+              </div>
+              </div>
+              </div>
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-3 col-form-label font-weight-normal text-sm-right"
+              >Terakhir Barang</label>
+              <div class="col-sm-6"> 
+              <input type="text"
+                  class="form-control"
+                  name="barangterakhir"
+                  id="barangterakhir"
+                  required >
+              </div>
+              </div>
+              </div>
+              </div>  
+              <div class="row">
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-4 col-form-label font-weight-normal text-sm-right"
+                >Harga Pokok Barang</label>
+                
+              <div class="col-sm-3">
+              <input  type="text"
+                  class="form-control "
+                  name="baranghrgpokok"
+                  id="baranghrgpokok"
+                  required >
+              </div>
+              </div>
+              </div>
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-3 col-form-label font-weight-normal text-sm-right"
+              >Harga Khusus Barang</label>
+              <div class="col-sm-3"> 
+              <input type="text"
+                  class="form-control"
+                  name="baranghrgkhusus"
+                  id="baranghrgkhusus"
+                  required >
+              </div>
+              </div>
+              </div>
+              </div> 
+            <div class="row">
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-4 col-form-label font-weight-normal text-sm-right"
+                >Jumlah Satuan Barang</label>
+                
+              <div class="col-sm-2">
+              <input  type="text"
+                  class="form-control "
+                  name="barangjumsat"
+                  id="barangjumsat"
+                  rows="3"
+                  required >
+              </div>
+              </div>
+              </div>
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-3 col-form-label font-weight-normal text-sm-right"
+              >Tanggal Beli Terakhir Barang</label>
+              <div class="col-sm-5"> 
+              <input type="date"
+                  class="form-control"
+                  name="barangtglbliakh"
+                  id="barangtglbliakh"
+                  required >
+              </div>
+              </div>
+              </div>
+              </div>
+              <div class="row">
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-4 col-form-label font-weight-normal text-sm-right"
+                >Update Barang</label>
+                
+              <div class="col-sm-5">
+              <input  type="datetime-local"
+                  class="form-control "
+                  name="barangupdate"
+                  id="barangupdate"
+                  required >
+              </div>
+              </div>
+              </div>
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-3 col-form-label font-weight-normal text-sm-right"
+              >Status Poin Barang</label>
+              <div class="col-sm-2"> 
+              <input type="text"
+                  class="form-control"
+                  name="barangstatpoin"
+                  id="barangstatpoin"
+                  maxlength="1"
+                  required >
+              </div>
+              </div>
+              </div>
+              </div>
+            
+            <hr />
+            <button type="submit" class="btn btn-block btn-primary">
+              PROSES
+            </button>
+          </div>
+          <!-- /.card-footer -->
+        </form>
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
+</div>
+{% endblock content %} {% block js %}
+<script>
+window.onload=function (){
+    {% if method == 'edit' %}
+        var brgkode = document.getElementById('brgkode');
+        var brgnama = document.getElementById('brgnama');
+        var brgjnskode = document.getElementById('brgjnskode');
+        var satuankode = document.getElementById('satuankode');
+        var barangbarcode = document.getElementById('barangbarcode');
+        var baranghrgbppn = document.getElementById('baranghrgbppn');
+        var baranghrgsppn = document.getElementById('baranghrgsppn');
+        var baranghrgkhusus = document.getElementById('baranghrgkhusus');
+        var baranghrgpokok = document.getElementById('baranghrgpokok');
+        var barangjumsat = document.getElementById('barangjumsat');
+        var barangterakhir = document.getElementById('barangterakhir');
+        var barangtglbliakh = document.getElementById('barangtglbliakh');
+        var barangstatpoin = document.getElementById('barangstatpoin');
+
+        brgkode.setAttribute('readonly','true');
+        brgkode.value = '{{data.barangkode}}';
+        brgnama.value = '{{data.barangnama}}';
+        baranghrgbppn.value = '{{data.baranghrgbppn}}';
+        baranghrgsppn.value = '{{data.baranghrgsppn}}';
+        barangbarcode.value = '{{data.barangbarcode}}';
+        baranghrgpokok.value = '{{data.baranghrgpokok}}';
+        barangjumsat.value = '{{data.barangjumsat}}';
+        barangstatpoin.value = '{{data.barangstatpoin}}';
+        barangterakhir.value = '{{data.barangterakhir}}';
+        barangtglbliakh.value = '{{data.barangtglbliakh}}';
+        barangupdate.value = '{{data.barangupdate}}';
+        baranghrgkhusus.value = '{{data.baranghrgkhusus}}';
+        brgjnskode.value = '{{data.brgjnskode}}';
+        satuankode.value = '{{data.satuankode}}';
+    {% endif %}
+}
+
+</script>{% endblock js %}
