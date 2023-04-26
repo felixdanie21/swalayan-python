@@ -75,3 +75,7 @@
     .dt-buttons .btn-secondary:hover:disabled {
       color: white;
     }
+
+    .content-size {
+      margin: 0 auto;
+    }

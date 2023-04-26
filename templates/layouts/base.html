@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
   <link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
   <!-- Css sendiri -->
-  <link rel="stylesheet" href="{% static 'dist/css/elsofinar.css' %}">
+  <link rel="stylesheet" href="{% static 'dist/css/elsofinar.css' %}?n=1">
   {% block css %}{% endblock css %}
 </head>
 
@@ -44,13 +44,9 @@
       <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
-            <div class="col-sm-6">
+            <div class="col-sm-12 text-center">
               <h1 class="font-weight-bold text-uppercase text-white">{% block content-title %}{% endblock content-title %}</h1>
-            </div>
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item">{% block content-back %}{% endblock content-back %}</li>
-              </ol>
+              <hr class="mb-0 mt-1" style="width:50px;background-color:white">
             </div>
           </div>
         </div><!-- /.container-fluid -->
