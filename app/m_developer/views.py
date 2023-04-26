@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from app.utilities import ambil_menu, insert_csv
 from app.decorators import user_level_required, login_required
-from app.models import Menu
+from app.models import Menu, Msatuan
 import json
 import csv
 
@@ -62,5 +62,6 @@ def contoh_table(request):
         'dbmenu': ambil_menu('developer'),
         'parent_segment': '-',
         'segment': 'contoh_table',
+        'msatuan': Msatuan.objects.all()
     }
     return render(request, 'developer/contoh-table.html', context)
