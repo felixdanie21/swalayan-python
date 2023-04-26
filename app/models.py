@@ -83,7 +83,8 @@ class DjangoAdminLog(models.Model):
     object_repr = models.CharField(max_length=200)
     action_flag = models.PositiveSmallIntegerField()
     change_message = models.TextField()
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
+    content_type = models.ForeignKey(
+        'DjangoContentType', models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
 
     class Meta:
@@ -148,7 +149,7 @@ class Mbarang(models.Model):
     barangstatpoin = models.CharField(max_length=1)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'mbarang'
 
 
@@ -158,7 +159,7 @@ class Mbrgjns(models.Model):
     groupkode = models.CharField(max_length=2)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'mbrgjns'
 
 
@@ -170,7 +171,7 @@ class Mbrglok(models.Model):
     gudangkode = models.CharField(max_length=2)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'mbrglok'
 
 
@@ -186,7 +187,7 @@ class Mbrgsat(models.Model):
     brgsatbarcode = models.CharField(max_length=20)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'mbrgsat'
         unique_together = (('barangkode', 'brgsatnourut'),)
 
@@ -198,7 +199,7 @@ class Mbrgsupp(models.Model):
     brgsupphsppn = models.FloatField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'mbrgsupp'
         unique_together = (('supplierkode', 'barangkode'),)
 
@@ -213,9 +214,10 @@ class Menu(models.Model):
     menulevel = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'menu'
-        unique_together = (('modulkode', 'menukode'), ('modulkode', 'menukode'),)
+        unique_together = (('modulkode', 'menukode'),
+                           ('modulkode', 'menukode'),)
 
 
 class Mgroup(models.Model):
@@ -223,7 +225,7 @@ class Mgroup(models.Model):
     groupnama = models.CharField(max_length=40)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'mgroup'
 
 
@@ -233,7 +235,7 @@ class Mgudang(models.Model):
     gudangstatus = models.CharField(max_length=1)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'mgudang'
 
 
@@ -246,7 +248,7 @@ class Mhrgbaru(models.Model):
     hrgbarusppn = models.FloatField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'mhrgbaru'
 
 
@@ -256,7 +258,7 @@ class Mhrgcus(models.Model):
     hrgcusharga = models.FloatField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'mhrgcus'
         unique_together = (('barangkode', 'customerkode'),)
 
@@ -284,7 +286,7 @@ class Mhrgmod(models.Model):
     hrgmodhmastp = models.FloatField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'mhrgmod'
 
 
@@ -293,7 +295,7 @@ class Mlokasi(models.Model):
     lokasinama = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'mlokasi'
 
 
@@ -302,7 +304,7 @@ class Modul(models.Model):
     modulnama = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'modul'
 
 
@@ -311,7 +313,7 @@ class Mpabrik(models.Model):
     pabriknama = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'mpabrik'
 
 
@@ -325,7 +327,7 @@ class Mrangehrg(models.Model):
     rangehrgtgl = models.DateField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'mrangehrg'
         unique_together = (('barangkode', 'rangehrgqty'),)
 
@@ -336,7 +338,7 @@ class Msatuan(models.Model):
     satuanlama = models.CharField(max_length=2)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'msatuan'
 
 
@@ -353,7 +355,7 @@ class Msupplier(models.Model):
     supplierpkp = models.CharField(max_length=1)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'msupplier'
 
 
@@ -366,5 +368,5 @@ class Muser(models.Model):
     usertoken = models.TextField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'muser'
