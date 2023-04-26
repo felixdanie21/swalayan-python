@@ -2,8 +2,9 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from app.decorators import login_required
 from app.utilities import ambil_menu
-from app.models import Msatuan,Mbrgjns,Mpabrik,Mgroup
+from app.models import Msatuan,Mbrgjns,Mpabrik,Mgroup,Mbarang
 from django.contrib import messages
+import json
 
 @login_required()
 def index(request):
@@ -88,8 +89,10 @@ def mbrg_jenisbrg(request):
 def mbrg_jenisbrg_form(request,method):
     if method == 'tambah':
         data = []
+        group=Mgroup.objects.all()
         judul ='Tambah Jenis Barang'
     elif method == 'edit':
+        group=Mgroup.objects.all()
         brgjnskode=request.GET['brgjnskode']
         data = Mbrgjns.objects.get(brgjnskode=brgjnskode)
         judul = 'Edit Jenis Barang'
@@ -100,6 +103,8 @@ def mbrg_jenisbrg_form(request,method):
         'method': method,
         'judul': judul,
         'data': data,
+        'group': group
+    
     }
     return render(request,'datainduk/mbrg_jenisbrg/form.html',context)
 @login_required()
@@ -173,7 +178,7 @@ def mbrg_pabrik_post(request,method):
         pabrikkode =request.POST['pabrikkode']
         pabriknama= request.POST['pabriknama']
         if Mpabrik.objects.filter(pabrikkode=pabrikkode).exists():
-            messages.error(request,'Kode Satuan Sudah Di Gunakan')
+            messages.error(request,'Kode Pabrik Sudah Di Gunakan')
             return redirect('mbrg_pabrik')
         else:
             tambahdata=Mpabrik(
@@ -197,6 +202,7 @@ def mbrg_pabrik_delete(request,pabrikkode):
     Mpabrik.objects.get(pabrikkode=pabrikkode).delete()
     messages.success(request,'Data anda telah terhapus')
     return redirect('mbrg_pabrik')
+@login_required()
 def mbrg_group(request):
     judul='Data Group'
     context={  
@@ -207,6 +213,7 @@ def mbrg_group(request):
         'judul':judul
     }
     return render(request,'datainduk/mbrg_group/index.html',context)
+@login_required()
 def mbrg_group_form(request,method):  
     if method == 'tambah':
         data = []
@@ -223,9 +230,10 @@ def mbrg_group_form(request,method):
         'method': method,
         'judul':judul,
         'data':data
-     }
+          }
     return render(request, 'datainduk/mbrg_group/form.html', context)
 
+@login_required()
 def mbrg_group_post(request,method):
     if method=='tambah':
         groupkode=request.POST['groupkode']
@@ -246,8 +254,114 @@ def mbrg_group_post(request,method):
         group.save()
         messages.success(request,'Data anda telah di udah')
     return redirect(mbrg_group)
-
+@login_required()
 def mbrg_group_delete(request, groupkode):
     Mgroup.objects.get(groupkode=groupkode).delete()
-    messages.success(request,'Data anda telah terhapus')
+    messages.success(request,'Data Group Telah Dihapus')
     return redirect('mbrg_group')
+@login_required()
+def mbrg_databarang(request):
+    judul='Data Barang'
+    jenisbarang = Mbarang.objects.extra(
+        select={
+            'brgjnsnama': 'mbrgjns.brgjnsnama',
+            'satuannama': 'msatuan.satuannama',
+        },
+        tables=['mbrgjns', 'msatuan'],
+        where=[
+            'mbrgjns.brgjnskode = mbarang.brgjnskode',
+            'msatuan.satuankode = mbarang.satuankode',
+        ]
+    ) 
+    context = {
+        'dbmenu': ambil_menu('c'),
+        'parent_segment': 'C010000',
+        'segment': 'C010100',
+        'mbarang':jenisbarang,
+        'judul':judul
+    }
+    return render(request,'datainduk/mbrg_databarang/index.html', context)
+@login_required()
+def mbrg_databarang_form(request, method):
+    if method == 'tambah':
+        data=[]
+        judul='Tambah Data Barang'
+        jenisbarang=Mbrgjns.objects.all()
+        satuanbarang=Msatuan.objects.all()
+    elif method=='edit':
+        jenisbarang=Mbrgjns.objects.all()
+        satuanbarang=Msatuan.objects.all()
+        kodebarang=request.GET['barangkode']
+        data=Mbarang.objects.get(barangkode=kodebarang)
+        judul='Edit Data Barang'
+    context = {
+        'dbmenu': ambil_menu('c'),
+        'parent_segment': 'C010000',
+        'segment': 'C010100',
+        'data':data,
+        'jenisbarang': jenisbarang,
+        'satuanbarang': satuanbarang,
+        'method': method,
+        'judul':judul
+    }
+    return render(request,'datainduk/mbrg_databarang/form.html',context)
+
+def mbrg_databarang_post(request,method):
+    if method == 'tambah':
+        brgnama= request.POST['brgnama']
+        brgkode= request.POST['brgkode']
+        brgjnskode= request.POST['brgjnskode']
+        baranghrgbppn = request.POST['baranghrgbppn']
+        satuankode= request.POST['satuankode']
+        baranghrgsppn= request.POST['baranghrgsppn']
+        barangterakhir = request.POST['barangterakhir']
+        baranghrgpokok= request.POST['baranghrgpokok']
+        baranghrgkhusus= request.POST['baranghrgkhusus']
+        barangjumsat = request.POST['barangjumsat']
+        barangtglbliakh = request.POST['barangtglbliakh']
+        barangupdate= request.POST['barangupdate']
+        barangstatpoin= request.POST['barangstatpoin']
+        barangbarcode= request.POST['barangbarcode']
+        if Mbarang.objects.filter(barangkode=brgkode).exists():
+            messages.error(request,'Kode Barang Sudah Di Gunakan')
+            return redirect('mbrg_databarang')
+        else:
+            tambah = Mbarang(barangkode=brgkode,barangnama=brgnama,brgjnskode=brgjnskode,satuankode=satuankode,barangbarcode=barangbarcode,baranghrgbppn=baranghrgbppn,baranghrgsppn=baranghrgsppn,barangterakhir=barangterakhir,baranghrgpokok=baranghrgpokok,baranghrgkhusus=baranghrgkhusus,barangjumsat=barangjumsat,barangtglbliakh=barangtglbliakh,barangupdate=barangupdate,barangstatpoin=barangstatpoin)
+            tambah.save()
+            messages.success(request,'Berhasil Di Tambah ')
+    elif method == 'edit':
+        brgnama= request.POST['brgnama']
+        brgkode= request.POST['brgkode']
+        brgjnskode= request.POST['brgjnskode']
+        baranghrgbppn = request.POST['baranghrgbppn']
+        satuankode= request.POST['satuankode']
+        baranghrgsppn= request.POST['baranghrgsppn']
+        barangterakhir = request.POST['barangterakhir']
+        baranghrgpokok= request.POST['baranghrgpokok']
+        baranghrgkhusus= request.POST['baranghrgkhusus']
+        barangjumsat = request.POST['barangjumsat']
+        barangtglbliakh = request.POST['barangtglbliakh']
+        barangupdate= request.POST['barangupdate']
+        barangstatpoin= request.POST['barangstatpoin']
+        barangbarcode= request.POST['barangbarcode']
+
+        barang = Mbarang.objects.get(barangkode=brgkode)
+        barang.barangnama=brgnama
+        barang.brgjnskode=brgjnskode
+        barang.satuankode=satuankode
+        barang.barangbarcode=barangbarcode
+        barang.baranghrgpokok=baranghrgpokok
+        barang.baranghrgbppn=baranghrgbppn
+        barang.baranghrgsppn=baranghrgsppn
+        barang.baranghrgkhusus=baranghrgkhusus
+        barang.barangjumsat=barangjumsat
+        barang.barangtglbliakh=barangtglbliakh
+        barang.barangupdate=barangupdate
+        barang.barangstatpoin=barangstatpoin
+        barang.save()
+        messages.success(request,'Barang Berhasil di ubah')
+    return redirect('mbrg_databarang')
+def mbrg_databarang_delete(request ,barangkode):
+    Mbarang.objects.get(barangkode=barangkode).delete()
+    messages.success(request,'Data Barang Telah Dihapus')
+    return redirect('mbrg_databarang')

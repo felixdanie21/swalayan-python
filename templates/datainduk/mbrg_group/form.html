@@ -2,7 +2,7 @@
 {% block title %}{{judul}}{% endblock title %}
 {% block css %}{% endblock css %}
 {% block content-title %}{{judul}}{% endblock content-title %} 
-{% block content-back %}<a href="{% url 'mbrg_jenisbrg' %}"class="text-white"><i class="fas fa-arrow-alt-circle-left"></i> Kembali</a>{% endblock content-back %}
+{% block content-back %}<a href="{% url 'mbrg_group' %}"class="text-white"><i class="fas fa-arrow-alt-circle-left"></i> Kembali</a>{% endblock content-back %}
 {% block content %}
 <div class="container-fluid">
   <div class="row">
@@ -25,12 +25,11 @@
                   class="form-control"
                   name="groupkode"
                   id="groupkode"
-                  maxlength="4"
+                  maxlength="2"
                   required
                 />
               </div>
             </div>
-          <div class="card-body">
             <div class="form-group row">
               <label
                 for="input"
@@ -47,7 +46,7 @@
                   required
                 />
               </div>
-            </div>
+              </div
             <hr />
             <button type="submit" class="btn btn-block btn-primary">
               PROSES
@@ -60,6 +59,10 @@
     </div>
   </div>
 </div>
+
+
+{% endblock content %} 
+{% block js %}
 <script>
 window.onload=function (){
     {% if method == 'edit' %}
@@ -71,6 +74,5 @@ window.onload=function (){
         groupnama.value = '{{data.groupnama}}';
     {% endif %}
 }
-
 </script>
-{% endblock content %} {% block js %}{% endblock js %}
+{% endblock js %}

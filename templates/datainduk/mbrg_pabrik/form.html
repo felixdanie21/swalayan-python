@@ -12,7 +12,6 @@
         <!-- form start -->
         <form action="{% url 'mbrg_pabrik_post' method %}" method="POST" enctype="multipart/form-data" class="form-horizontal">
           {% csrf_token %}
-          
           <div class="card-body">
             <div class="form-group row">
               <label
@@ -60,6 +59,8 @@
     </div>
   </div>
 </div>
+{% endblock content %} 
+{% block js %}
 <script>
 window.onload=function (){
     {% if method == 'edit' %}
@@ -72,6 +73,5 @@ window.onload=function (){
 
     {% endif %}
 }
-
 </script>
-{% endblock content %} {% block js %}{% endblock js %}
+{% endblock js %}
