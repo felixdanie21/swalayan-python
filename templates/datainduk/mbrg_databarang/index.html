@@ -1,0 +1,86 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}{{judul}}{% endblock title %}
+
+{% block css %}{% endblock css %}
+
+{% block content-title %}{{judul}}{% endblock content-title %}
+
+{% block content-back %}{% endblock content-back %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div style="overflow: auto;height: 78vh" class="col-sm-12">
+            <table id="idtable" style="font-size:16px" class="table table-sm table-bordered bg-light">
+                <thead class="bg-primary" style="position: sticky;top:0;z-index:2;">
+                    <tr>
+                        <th class="text-center text-uppercase align-middle">Kode Barang</th>
+                        <th class="text-center text-uppercase align-middle">Nama Barang</th>
+                        <th class="text-center text-uppercase align-middle">Nama Jenis Barang</th>
+                        <th class="text-center text-uppercase align-middle">Nama Satuan</th>
+                        <th class="text-center text-uppercase align-middle">Harga Belum PPN Barang</th>
+                        <th class="text-center text-uppercase align-middle">Harga Sesudah PPN Barang</th>
+                        <th class="text-center text-uppercase align-middle">Terakhir Barang</th>
+                        <th class="text-center text-uppercase align-middle">Barcode Barang</th>
+                        <th class="text-center text-uppercase align-middle">Harga Pokok Barang</th>
+                        <th class="text-center text-uppercase align-middle">Harga Khusus Barang</th>
+                        <th class="text-center text-uppercase align-middle">Jumsat Barang</th>
+                        <th class="text-center text-uppercase align-middle">tgl bliakh Barang</th>
+                        <th class="text-center text-uppercase align-middle">Update Barang</th>
+                        <th class="text-center text-uppercase align-middle">Status Poin Barang</th>
+
+
+                        <th class="text-center text-uppercase align-middle">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for barang in mbarang %}
+                    <tr>
+                        <td>{{barang.barangkode}}</td>
+                        <td>{{barang.barangnama}}</td>
+                        <td>{{barang.brgjnsnama}}</td>
+                        <td>{{barang.satuannama}}</td>
+                        <td>{{barang.baranghrgbppn}}</td>
+                        <td>{{barang.baranghrgsppn}}</td>
+                        <td>{{barang.barangterakhir}}</td>
+                        <td>{{barang.barangbarcode}}</td>
+                        <td>{{barang.baranghrgpokok}}</td>
+                        <td>{{barang.baranghrgkhusus}}</td>
+                        <td>{{barang.barangjumsat}}</td>
+                        <td>{{barang.barangtglbliakh}}</td>
+                        <td>{{barang.barangupdate}}</td>
+                        <td>{{barang.barangstatpoin}}</td>
+                        <td><a href="{% url 'mbrg_databarang_form' 'edit'%}?barangkode={{barang.barangkode}}" class="btn btn-primary">Edit</a>
+                        <a onclick="return confirm('Apakah data ini akan di hapus ? {{ barang.barangkode }}')" href="{% url 'mbrg_databarang_delete' barang.barangkode %}" class="btn btn-danger">Delete</a></td>
+                    </tr>
+                    {%endfor%}
+                                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script>
+    $(function () {
+        $("#idtable").DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": false,
+            "info": false,
+            "autoWidth": false,
+            "responsive": true,
+            "buttons": [{
+                className: 'mr-2 btn-primary',
+                text: 'TAMBAH <i class="fas fa-plus" ></i>',
+                action: function(e, dt, node, config) {
+                    window.location.href = '{% url "mbrg_databarang_form" "tambah"%}'
+                }
+            },"csv", "excel", "pdf", "print"]
+        }).buttons().container().appendTo('#idtable_wrapper .col-md-6:eq(0)');
+    });
+</script>
+{% endblock js %}
