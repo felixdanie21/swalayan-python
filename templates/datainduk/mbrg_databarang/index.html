@@ -1,131 +1,185 @@
-{% extends 'layouts/base.html' %}
-{% load humanize %}
-
-{% block title %}{{judul}}{% endblock title %}
-
-{% block css %}{% endblock css %}
-
-{% block content-title %}{{judul}}{% endblock content-title %}
-
-{% block content-back %}{% endblock content-back %}
-
-{% block content %}
+{% extends 'layouts/base.html' %} {% load humanize %} {% block title
+%}{{judul}}{% endblock title %} {% block css %}{% endblock css %} {% block
+content-title %}{{judul}}{% endblock content-title %} {% block content-back %}{%
+endblock content-back %} {% block content %}
 <div class="container-fluid">
-    <div class="row">
-        <div style="overflow: auto;height: 78vh" class="col-sm-12">
-            <table id="idtable" style="font-size:12px" class="table table-sm table-bordered bg-light">
-                <thead class="bg-primary" style="position: sticky;top:0;z-index:2;">
-                    <tr>
-                        <th class="text-center text-uppercase align-middle">Kode</th>
-                        <th class="text-center text-uppercase align-middle">Nama Barang</th>
-                        <th class="text-center text-uppercase align-middle">Nama Jenis Barang</th>
-                        <th class="text-center text-uppercase align-middle">Nama Satuan</th>
-                        <th class="text-center text-uppercase align-middle">Harga Belum PPN </th>
-                        <th class="text-center text-uppercase align-middle">Harga Sesudah PPN </th>
-                        <th class="text-center text-uppercase align-middle">Terakhir barang</th>
-                        <th class="text-center text-uppercase align-middle">Barcode</th>
-                        <th class="text-center text-uppercase align-middle">Harga Pokok </th>
-                        <th class="text-center text-uppercase align-middle">Harga Khusus</th>
-                        <th class="text-center text-uppercase align-middle">Jumblah Satuan</th>
-                        <th class="text-center text-uppercase align-middle">tgl bliakh Barang</th>
-                        <th class="text-center text-uppercase align-middle">Update</th>
-                        <th class="text-center text-uppercase align-middle">Status Poin </th>
+  <div class="row">
+    <div style="overflow: auto; height: 78vh" class="col-sm-12">
+      <table
+        id="idtable"
+        style="font-size: 12px"
+        class="table table-sm table-bordered bg-light"
+      >
+        <thead class="bg-primary" style="position: sticky; top: 0; z-index: 2">
+          <tr>
+            <th class="text-center text-uppercase align-middle">Kode</th>
+            <th class="text-center text-uppercase align-middle">Nama Barang</th>
+            <th class="text-center text-uppercase align-middle">
+              Nama Jenis Barang
+            </th>
+            <th class="text-center text-uppercase align-middle">Nama Satuan</th>
+            <th class="text-center text-uppercase align-middle">
+              Harga Belum PPN
+            </th>
+            <th class="text-center text-uppercase align-middle">
+              Harga Sesudah PPN
+            </th>
+            <th class="text-center text-uppercase align-middle">
+              Terakhir barang
+            </th>
+            <th class="text-center text-uppercase align-middle">Barcode</th>
+            <th class="text-center text-uppercase align-middle">Harga Pokok</th>
+            <th class="text-center text-uppercase align-middle">
+              Harga Khusus
+            </th>
+            <th class="text-center text-uppercase align-middle">
+              Jumblah Satuan
+            </th>
+            <th class="text-center text-uppercase align-middle">
+              tgl bliakh Barang
+            </th>
+            <th class="text-center text-uppercase align-middle">Update</th>
+            <th class="text-center text-uppercase align-middle">Status Poin</th>
 
-
-                        <th width="10%" class="text-center text-uppercase align-middle">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {%for barang in mbarang %}
-                    <tr>
-                        <td>{{barang.barangkode}}</td>
-                        <td>{{barang.barangnama}}</td>
-                        <td>{{barang.brgjnsnama}}</td>
-                        <td>{{barang.satuannama}}</td>
-                        <td>{{barang.baranghrgbppn|floatformat:0|intcomma}}</td>
-                        <td>{{barang.baranghrgsppn|floatformat:0|intcomma}}</td>
-                        <td>{{barang.barangterakhir}}</td>
-                        <td>{{barang.barangbarcode}}</td>
-                        <td>{{barang.baranghrgpokok|floatformat:0|intcomma}}</td>
-                        <td>{{barang.baranghrgkhusus|floatformat:0|intcomma}}</td>
-                        <td>{{barang.barangjumsat}}</td>
-                        <td>{{barang.barangtglbliakh|date:"Y-m-d"}}</td>
-                        <td>{{barang.barangupdate|date:"Y-m-d H:i:s"}}</td>
-                        <td>{{barang.barangstatpoin}}</td>
-                        <td><a href="{% url 'mbrg_databarang_form' 'edit'%}?barangkode={{barang.barangkode}}"   class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                        <a href="#" data-toggle="modal" data-target="#modalDelete" data-href="{% url 'mbrg_databarang_delete' barang.barangkode %}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
-                        <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalDeleteLabel">Konfirmasi Penghapusan</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Apakah Anda yakin ingin menghapus data ini? {{ barang.barangkode }}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-        <a class="btn btn-danger" id="btnDelete">Hapus</a>
-      </div>
+            <th width="10%" class="text-center text-uppercase align-middle">
+              Aksi
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for barang in mbarang %}
+          <tr>
+            <td>{{barang.barangkode}}</td>
+            <td>{{barang.barangnama}}</td>
+            <td>{{barang.brgjnsnama}}</td>
+            <td>{{barang.satuannama}}</td>
+            <td>{{barang.baranghrgbppn|floatformat:0|intcomma}}</td>
+            <td>{{barang.baranghrgsppn|floatformat:0|intcomma}}</td>
+            <td>{{barang.barangterakhir}}</td>
+            <td>{{barang.barangbarcode}}</td>
+            <td>{{barang.baranghrgpokok|floatformat:0|intcomma}}</td>
+            <td>{{barang.baranghrgkhusus|floatformat:0|intcomma}}</td>
+            <td>{{barang.barangjumsat}}</td>
+            <td>{{barang.barangtglbliakh|date:"Y-m-d"}}</td>
+            <td>{{barang.barangupdate|date:"Y-m-d H:i:s"}}</td>
+            <td>{{barang.barangstatpoin}}</td>
+            <td>
+              <a
+                href="{% url 'mbrg_databarang_form' 'edit'%}?barangkode={{barang.barangkode}}"
+                class="btn btn-primary"
+                ><i class="fas fa-edit"></i
+              ></a>
+              <a
+                href="#"
+                data-toggle="modal"
+                data-target="#modalDelete"
+                data-href="{% url 'mbrg_databarang_delete' barang.barangkode %}"
+                class="btn btn-danger"
+                ><i class="fas fa-trash"></i
+              ></a>
+            </td>
+            <div
+              class="modal fade"
+              id="modalDelete"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="modalDeleteLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalDeleteLabel">
+                      Konfirmasi Penghapusan
+                    </h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Apakah Anda yakin ingin menghapus data ini? {{
+                    barang.barangkode }}
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                    >
+                      Batal
+                    </button>
+                    <a class="btn btn-danger" id="btnDelete">Hapus</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
-                        </tr>
-                    {%endfor%}
-                                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-{% endblock content %}
-
-{% block js %}
+{% endblock content %} {% block js %}
 <script>
-    $(function () {
-        $("#idtable").DataTable({
-            "paging": false,
-            "lengthChange": false,
-            "searching": true,
-            "ordering": false,
-            "info": false,
-            "autoWidth": false,
-            "responsive": true,
-            "buttons": [{
-                className: 'mr-2 btn-primary',
-                text: 'TAMBAH <i class="fas fa-plus" ></i>',
-                action: function(e, dt, node, config) {
-                    window.location.href = '{% url "mbrg_databarang_form" "tambah"%}'
-                }
-            },"csv", "excel", "pdf", "print"]
-        }).buttons().container().appendTo('#idtable_wrapper .col-md-6:eq(0)');
+  $(function () {
+    $("#idtable")
+      .DataTable({
+        paging: false,
+        lengthChange: false,
+        searching: true,
+        ordering: false,
+        info: false,
+        autoWidth: false,
+        responsive: true,
+        buttons: [
+          {
+            className: "mr-2 btn-primary",
+            text: 'TAMBAH <i class="fas fa-plus" ></i>',
+            action: function (e, dt, node, config) {
+              window.location.href = '{% url "mbrg_databarang_form" "tambah"%}';
+            },
+          },
+          "csv",
+          "excel",
+          "pdf",
+          "print",
+        ],
+      })
+      .buttons()
+      .container()
+      .appendTo("#idtable_wrapper .col-md-6:eq(0)");
 
-      $(document).ready(function() {
-    $('#modalDelete').on('show.bs.modal', function(e) {
-      var href = $(e.relatedTarget).data('href');
-      $("#btnDelete").attr("href", href);
-    });
-
-    $('#btnDelete').click(function() {
-      $.ajax({
-        type: 'POST',
-        url: $(this).attr('href'),
-        beforeSend: function(xhr, settings) {
-          xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
-        },
-        success: function(response) {
-          $('#modalDelete').modal('hide');
-          // refresh page
-          location.reload();
-        },
-        error: function(xhr, status, error) {
-          alert(xhr.responseText);
-        }
+    $(document).ready(function () {
+      $("#modalDelete").on("show.bs.modal", function (e) {
+        var href = $(e.relatedTarget).data("href");
+        $("#btnDelete").attr("href", href);
       });
-      return false;
+
+      $("#btnDelete").click(function () {
+        $.ajax({
+          type: "POST",
+          url: $(this).attr("href"),
+          beforeSend: function (xhr, settings) {
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+          },
+          success: function (response) {
+            $("#modalDelete").modal("hide");
+            // refresh page
+            location.reload();
+          },
+          error: function (xhr, status, error) {
+            alert(xhr.responseText);
+          },
+        });
+        return false;
+      });
     });
-  }); });
+  });
 </script>
 {% endblock js %}
