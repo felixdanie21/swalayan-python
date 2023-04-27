@@ -28,10 +28,15 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="input" class="col-sm-3 col-form-label font-weight-normal text-sm-right">Input
-                                Text</label>
+                            <label for="input" class="col-sm-3 col-form-label font-weight-normal text-sm-right">Input Text</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="input" id="input" required>
+                                <input type="text" class="form-control" name="inputtext" id="inputtext" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="input" class="col-sm-3 col-form-label font-weight-normal text-sm-right">Input Nominal</label>
+                            <div class="col-sm-9">
+                                <input onchange="testOnchange()" type="nominal" class="form-control" name="inputnominal" id="inputnominal" required>
                             </div>
                         </div>
                         <hr>
@@ -51,4 +56,10 @@
 </div>
 {% endblock content %}
 
-{% block js %}{% endblock js %}
+{% block js %}
+<script>
+    window.onload = function(){
+        inputType()
+    }
+</script>
+{% endblock js %}
