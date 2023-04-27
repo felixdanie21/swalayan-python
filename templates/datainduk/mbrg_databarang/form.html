@@ -2,11 +2,10 @@
 {% block title %}{{judul}}{% endblock title %}
 {% block css %}{% endblock css %}
 {% block content-title %}{{judul}}{% endblock content-title %} 
-{% block content-back %}<a href="{% url 'mbrg_databarang' %}"class="text-white"><i class="fas fa-arrow-alt-circle-left"></i> Kembali</a>{% endblock content-back %}
 {% block content %}
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-10">
+    <div class="col-sm-10 content-size">
       <!-- Default box -->
       <div class="card">
         <!-- form start -->
@@ -90,7 +89,7 @@
                 >Harga Sebelum PPN </label>
                 
               <div class="col-sm-4">
-              <input  type="text"
+              <input  type="nominal"
                   class="form-control "
                   name="baranghrgbppn"
                   id="baranghrgbppn"
@@ -124,7 +123,7 @@
                 >Harga Sesudah PPN </label>
                 
               <div class="col-sm-3">
-              <input  type="text"
+              <input  type="nominal"
                   class="form-control "
                   name="baranghrgsppn"
                   id="baranghrgsppn"
@@ -155,7 +154,7 @@
                 >Harga Pokok Barang</label>
                 
               <div class="col-sm-3">
-              <input  type="text"
+              <input  type="nonimal"
                   class="form-control "
                   name="baranghrgpokok"
                   id="baranghrgpokok"
@@ -169,7 +168,7 @@
                 class="col-sm-3 col-form-label font-weight-normal text-sm-right"
               >Harga Khusus Barang</label>
               <div class="col-sm-3"> 
-              <input type="text"
+              <input type="nominal"
                   class="form-control"
                   name="baranghrgkhusus"
                   id="baranghrgkhusus"
@@ -244,9 +243,13 @@
               </div>
             
             <hr />
-            <button type="submit" class="btn btn-block btn-primary">
-              PROSES
-            </button>
+           <div class="row">
+                <div class="col-12 d-flex justify-content-end">
+                    <a href="{% url 'mbrg_databarang' %}" type="button" class="btn btn-secondary mr-1"><i class="fas fa-angle-left"></i> KEMBALI</a>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> PROSES</button>
+                </div>
+            </div>
+        
           </div>
           <!-- /.card-footer -->
         </form>
@@ -258,6 +261,8 @@
 {% endblock content %} {% block js %}
 <script>
 window.onload=function (){
+  inputType()
+
     {% if method == 'edit' %}
         var brgkode = document.getElementById('brgkode');
         var brgnama = document.getElementById('brgnama');
@@ -283,8 +288,8 @@ window.onload=function (){
         barangjumsat.value = '{{data.barangjumsat}}';
         barangstatpoin.value = '{{data.barangstatpoin}}';
         barangterakhir.value = '{{data.barangterakhir}}';
-        barangtglbliakh.value = '{{data.barangtglbliakh}}';
-        barangupdate.value = '{{data.barangupdate}}';
+        barangtglbliakh.value = '{{data.barangtglbliakh|date:"Y-m-d"}}';
+        barangupdate.value = '{{data.barangupdate|date:"Y-m-d H:i:s"}}';
         baranghrgkhusus.value = '{{data.baranghrgkhusus}}';
         brgjnskode.value = '{{data.brgjnskode}}';
         satuankode.value = '{{data.satuankode}}';

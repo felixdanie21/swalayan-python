@@ -311,12 +311,12 @@ def mbrg_databarang_post(request,method):
         brgnama= request.POST['brgnama']
         brgkode= request.POST['brgkode']
         brgjnskode= request.POST['brgjnskode']
-        baranghrgbppn = request.POST['baranghrgbppn']
+        baranghrgbppn = request.POST['baranghrgbppn'].replace(",", "")
         satuankode= request.POST['satuankode']
-        baranghrgsppn= request.POST['baranghrgsppn']
+        baranghrgsppn= request.POST['baranghrgsppn'].replace(",", "")
         barangterakhir = request.POST['barangterakhir']
-        baranghrgpokok= request.POST['baranghrgpokok']
-        baranghrgkhusus= request.POST['baranghrgkhusus']
+        baranghrgpokok= request.POST['baranghrgpokok'].replace(",", "")
+        baranghrgkhusus= request.POST['baranghrgkhusus'].replace(",", "")
         barangjumsat = request.POST['barangjumsat']
         barangtglbliakh = request.POST['barangtglbliakh']
         barangupdate= request.POST['barangupdate']
@@ -326,19 +326,19 @@ def mbrg_databarang_post(request,method):
             messages.error(request,'Kode Barang Sudah Di Gunakan')
             return redirect('mbrg_databarang')
         else:
-            tambah = Mbarang(barangkode=brgkode,barangnama=brgnama,brgjnskode=brgjnskode,satuankode=satuankode,barangbarcode=barangbarcode,baranghrgbppn=baranghrgbppn,baranghrgsppn=baranghrgsppn,barangterakhir=barangterakhir,baranghrgpokok=baranghrgpokok,baranghrgkhusus=baranghrgkhusus,barangjumsat=barangjumsat,barangtglbliakh=barangtglbliakh,barangupdate=barangupdate,barangstatpoin=barangstatpoin)
+            tambah = Mbarang(barangkode=brgkode,barangnama=brgnama,brgjnskode=brgjnskode,satuankode=satuankode,barangbarcode=barangbarcode,baranghrgbppn=int(baranghrgbppn),baranghrgsppn=int(baranghrgsppn),barangterakhir=barangterakhir,baranghrgpokok=int(baranghrgpokok),baranghrgkhusus=int(baranghrgkhusus),barangjumsat=barangjumsat,barangtglbliakh=barangtglbliakh,barangupdate=barangupdate,barangstatpoin=barangstatpoin)
             tambah.save()
             messages.success(request,'Berhasil Di Tambah ')
     elif method == 'edit':
         brgnama= request.POST['brgnama']
         brgkode= request.POST['brgkode']
         brgjnskode= request.POST['brgjnskode']
-        baranghrgbppn = request.POST['baranghrgbppn']
+        baranghrgbppn = request.POST['baranghrgbppn'].replace(",","")
         satuankode= request.POST['satuankode']
-        baranghrgsppn= request.POST['baranghrgsppn']
+        baranghrgsppn= request.POST['baranghrgsppn'].replace(",","")
         barangterakhir = request.POST['barangterakhir']
-        baranghrgpokok= request.POST['baranghrgpokok']
-        baranghrgkhusus= request.POST['baranghrgkhusus']
+        baranghrgpokok= request.POST['baranghrgpokok'].replace(",","")
+        baranghrgkhusus= request.POST['baranghrgkhusus'].replace(",","")
         barangjumsat = request.POST['barangjumsat']
         barangtglbliakh = request.POST['barangtglbliakh']
         barangupdate= request.POST['barangupdate']
@@ -350,10 +350,10 @@ def mbrg_databarang_post(request,method):
         barang.brgjnskode=brgjnskode
         barang.satuankode=satuankode
         barang.barangbarcode=barangbarcode
-        barang.baranghrgpokok=baranghrgpokok
-        barang.baranghrgbppn=baranghrgbppn
-        barang.baranghrgsppn=baranghrgsppn
-        barang.baranghrgkhusus=baranghrgkhusus
+        barang.baranghrgpokok=int(baranghrgpokok)
+        barang.baranghrgbppn=int(baranghrgbppn)
+        barang.baranghrgsppn=int(baranghrgsppn)
+        barang.baranghrgkhusus=int(baranghrgkhusus)
         barang.barangjumsat=barangjumsat
         barang.barangtglbliakh=barangtglbliakh
         barang.barangupdate=barangupdate

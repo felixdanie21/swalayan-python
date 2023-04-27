@@ -1,4 +1,5 @@
 {% extends 'layouts/base.html' %}
+{% load humanize %}
 
 {% block title %}{{judul}}{% endblock title %}
 
@@ -12,26 +13,26 @@
 <div class="container-fluid">
     <div class="row">
         <div style="overflow: auto;height: 78vh" class="col-sm-12">
-            <table id="idtable" style="font-size:16px" class="table table-sm table-bordered bg-light">
+            <table id="idtable" style="font-size:12px" class="table table-sm table-bordered bg-light">
                 <thead class="bg-primary" style="position: sticky;top:0;z-index:2;">
                     <tr>
-                        <th class="text-center text-uppercase align-middle">Kode Barang</th>
+                        <th class="text-center text-uppercase align-middle">Kode</th>
                         <th class="text-center text-uppercase align-middle">Nama Barang</th>
                         <th class="text-center text-uppercase align-middle">Nama Jenis Barang</th>
                         <th class="text-center text-uppercase align-middle">Nama Satuan</th>
-                        <th class="text-center text-uppercase align-middle">Harga Belum PPN Barang</th>
-                        <th class="text-center text-uppercase align-middle">Harga Sesudah PPN Barang</th>
-                        <th class="text-center text-uppercase align-middle">Terakhir Barang</th>
-                        <th class="text-center text-uppercase align-middle">Barcode Barang</th>
-                        <th class="text-center text-uppercase align-middle">Harga Pokok Barang</th>
-                        <th class="text-center text-uppercase align-middle">Harga Khusus Barang</th>
-                        <th class="text-center text-uppercase align-middle">Jumsat Barang</th>
+                        <th class="text-center text-uppercase align-middle">Harga Belum PPN </th>
+                        <th class="text-center text-uppercase align-middle">Harga Sesudah PPN </th>
+                        <th class="text-center text-uppercase align-middle">Terakhir barang</th>
+                        <th class="text-center text-uppercase align-middle">Barcode</th>
+                        <th class="text-center text-uppercase align-middle">Harga Pokok </th>
+                        <th class="text-center text-uppercase align-middle">Harga Khusus</th>
+                        <th class="text-center text-uppercase align-middle">Jumblah Satuan</th>
                         <th class="text-center text-uppercase align-middle">tgl bliakh Barang</th>
-                        <th class="text-center text-uppercase align-middle">Update Barang</th>
-                        <th class="text-center text-uppercase align-middle">Status Poin Barang</th>
+                        <th class="text-center text-uppercase align-middle">Update</th>
+                        <th class="text-center text-uppercase align-middle">Status Poin </th>
 
 
-                        <th class="text-center text-uppercase align-middle">Aksi</th>
+                        <th width="10%" class="text-center text-uppercase align-middle">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,18 +42,18 @@
                         <td>{{barang.barangnama}}</td>
                         <td>{{barang.brgjnsnama}}</td>
                         <td>{{barang.satuannama}}</td>
-                        <td>{{barang.baranghrgbppn}}</td>
-                        <td>{{barang.baranghrgsppn}}</td>
+                        <td>{{barang.baranghrgbppn|floatformat:0|intcomma}}</td>
+                        <td>{{barang.baranghrgsppn|floatformat:0|intcomma}}</td>
                         <td>{{barang.barangterakhir}}</td>
                         <td>{{barang.barangbarcode}}</td>
-                        <td>{{barang.baranghrgpokok}}</td>
-                        <td>{{barang.baranghrgkhusus}}</td>
+                        <td>{{barang.baranghrgpokok|floatformat:0|intcomma}}</td>
+                        <td>{{barang.baranghrgkhusus|floatformat:0|intcomma}}</td>
                         <td>{{barang.barangjumsat}}</td>
-                        <td>{{barang.barangtglbliakh}}</td>
-                        <td>{{barang.barangupdate}}</td>
+                        <td>{{barang.barangtglbliakh|date:"Y-m-d"}}</td>
+                        <td>{{barang.barangupdate|date:"Y-m-d H:i:s"}}</td>
                         <td>{{barang.barangstatpoin}}</td>
-                        <td><a href="{% url 'mbrg_databarang_form' 'edit'%}?barangkode={{barang.barangkode}}" class="btn btn-primary">Edit</a>
-                        <a onclick="return confirm('Apakah data ini akan di hapus ? {{ barang.barangkode }}')" href="{% url 'mbrg_databarang_delete' barang.barangkode %}" class="btn btn-danger">Delete</a></td>
+                        <td><a href="{% url 'mbrg_databarang_form' 'edit'%}?barangkode={{barang.barangkode}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                        <a onclick="return confirm('Apakah data ini akan di hapus ? {{ barang.barangkode }}')" href="{% url 'mbrg_databarang_delete' barang.barangkode %}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
                     </tr>
                     {%endfor%}
                                 </tbody>

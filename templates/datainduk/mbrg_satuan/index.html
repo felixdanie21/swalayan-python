@@ -6,12 +6,10 @@
 
 {% block content-title %}{{judul}}{% endblock content-title %}
 
-{% block content-back %}{% endblock content-back %}
-
 {% block content %}
 <div class="container-fluid">
     <div class="row">
-        <div style="overflow: auto;height: 78vh" class="col-sm-12">
+        <div style="overflow: auto;height: 78vh" class="col-sm-7 content-size">
             <table id="idtable" style="font-size:16px" class="table table-sm table-bordered bg-light">
                 <thead class="bg-primary" style="position: sticky;top:0;z-index:2;">
                     <tr>
@@ -25,8 +23,8 @@
                     <tr>
                         <td>{{satuan.satuankode}}</td>
                         <td>{{satuan.satuannama}}</td>
-                        <td><a href="{% url 'mbrg_satuan_form' 'edit'%}?satuankode={{satuan.satuankode}}" class="btn btn-primary">Edit</a>
-                            <a onclick="return confirm('Apakah data ini akan di hapus ? {{ satuan.satuankode }}')" href="{% url 'mbrg_satuan_delete' satuan.satuankode %}" class="btn btn-danger">Delete</a></td>
+                        <td><a href="{% url 'mbrg_satuan_form' 'edit'%}?satuankode={{satuan.satuankode}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                            <a onclick="return confirm('Apakah data ini akan di hapus ? {{ satuan.satuankode }}')" href="{% url 'mbrg_satuan_delete' satuan.satuankode %}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
                     </tr>
                     {%endfor%}
                                 </tbody>
