@@ -54,3 +54,26 @@ def contoh_views(request):
     .........
 ```
 
+## Input type Nominal
+
+Input type nominal digunakan untuk input harga. Contoh penggunaan:
+
+- Buat elemen input dengan type nominal
+  ```html
+  <input type="nominal" class="form-control" name="contoh_name" id="contoh_id" required>
+  <!-- type="nominal" => type pada input diisi dengan nominal  -->
+  <!-- id="contoh_id" => input type nominal wajib memiliki sebuah id  -->
+  ```
+- Load fungsi inputType pada script halaman, tepatnya di dalam window.onload = function(){}
+  ```html
+  {% block js %}
+  <script>
+      window.onload = function(){
+          // load fungsi inputType()
+          inputType()
+      }
+  </script>
+  {% endblock js %}
+  ```
+
+Contoh penggunaan bisa diliat di dalam modul developer menu contoh_form
