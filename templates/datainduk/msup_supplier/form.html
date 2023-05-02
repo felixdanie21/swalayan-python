@@ -1,0 +1,235 @@
+{% extends 'layouts/base.html' %} 
+{% block title %}{{judul}}{% endblock title %}
+{% block css %}{% endblock css %}
+{% block content-title %}{{judul}}{% endblock content-title %} 
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-10 content-size">
+      <!-- Default box -->
+      <div class="card">
+        <!-- form start -->
+        <form action="{% url 'msup_supplier_post' method %}" method="POST" enctype="multipart/form-data" class="form-horizontal">
+          {% csrf_token %}
+          <div class="card-body">
+              <div class="row">
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-4 col-form-label font-weight-normal text-sm-right"
+                >Nama Supplier</label>
+                
+              <div class="col-sm-8">
+              <input  type="text"
+                  class="form-control "
+                  name="suppliernama"
+                  id="suppliernama"
+                  maxlength="40"
+                  rows="3"
+                  required >
+              </div>
+              </div>
+              </div>
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-3 col-form-label font-weight-normal text-sm-right"
+              >Kode  Supplier</label>
+              <div class="col-sm-2"> 
+              <input type="text"
+                  class="form-control"
+                  name="supplierkode"
+                  id="supplierkode"
+                  maxlength="4"
+                  required >
+              </div>
+              </div>
+              </div>
+              </div> 
+              <div class="row">
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-4 col-form-label font-weight-normal text-sm-right"
+                >Alamat Supplier</label>
+                
+              <div class="col-sm-8">
+              <input  type="text"
+                  class="form-control "
+                  name="supplieralamat"
+                  id="supplieralamat"
+                  maxlength="60"
+                  required
+                  >
+
+              </div>
+              </div>
+              </div>
+               <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-3 col-form-label font-weight-normal text-sm-right"
+              >Kota  Supplier</label>
+              <div class="col-sm-7"> 
+              <input type="text"
+                  class="form-control"
+                  name="supplierkota"
+                  id="supplierkota"
+                  maxlength="30"
+                  required >
+              </div>
+              </div>
+              </div>
+              </div> 
+              
+                <div class="row">
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-4 col-form-label font-weight-normal text-sm-right"
+                >No Telepon Supplier</label>
+                
+              <div class="col-sm-5">
+              <input  type="text"
+                  class="form-control "
+                  maxlength="20"
+                  name="suppliertelp"
+                  id="suppliertelp"
+                  required
+                  >
+              </div>
+              </div>
+              </div>
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-3 col-form-label font-weight-normal text-sm-right"
+              >Kontak supplier</label>
+                <div class="col-sm-5">
+              <input  type="text"
+                  class="form-control "
+                  maxlength="20"
+                  name="supplierkontak"
+                  id="supplierkontak"
+                  required
+                  >
+              </div>
+              </div>
+              </div>
+              </div>
+              <div class="row">
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-4 col-form-label font-weight-normal text-sm-right"
+                >Kode Acc Supplier </label>
+                
+              <div class="col-sm-3">
+              <input  type="text"
+                  class="form-control "
+                  name="supplierkodeacc"
+                  id="supplierkodeacc"
+                  maxlength="10"
+                  required >
+              </div>
+              </div>
+              </div>
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-3 col-form-label font-weight-normal text-sm-right"
+              >Status Kota Supplier</label>
+              <div class="col-sm-2"> 
+              <input type="text"
+                  class="form-control"
+                  name="supplierstakota"
+                  id="supplierstakota"
+                  maxlength="1"
+                  required >
+              </div>
+              </div>
+              </div>
+              </div>  
+              <div class="row">
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-4 col-form-label font-weight-normal text-sm-right"
+                >NPWP Supplier</label>
+                
+              <div class="col-sm-5">
+              <input  type="text"
+                  class="form-control "
+                  name="suppliernpwp"
+                  maxlength="20"
+                  id="suppliernpwp"
+                  required >
+              </div>
+              </div>
+              </div>
+              <div class="col-sm-6">
+              <div class="form-group row">
+              <label  for="input"
+                class="col-sm-3 col-form-label font-weight-normal text-sm-right"
+              >PKP Supplier</label>
+              <div class="col-sm-2"> 
+              <input type="text"
+                  class="form-control"
+                  name="supplierpkp"
+                  id="supplierpkp"
+                  maxlength="1"
+                  required >
+              </div>
+              </div>
+              </div>
+              </div> 
+           
+            
+            <hr />
+           <div class="row">
+                <div class="col-12 d-flex justify-content-end">
+                    <a href="{% url 'msup_supplier' %}" type="button" class="btn btn-secondary mr-1"><i class="fas fa-angle-left"></i> KEMBALI</a>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> PROSES</button>
+                </div>
+            </div>
+        
+          </div>
+          <!-- /.card-footer -->
+        </form>
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
+</div>
+{% endblock content %} {% block js %}
+<script>
+window.onload=function (){
+  inputType()
+
+    {% if method == 'edit' %}
+        var supplierkode = document.getElementById('supplierkode');
+        var suppliernama = document.getElementById('suppliernama');
+        var supplieralamat = document.getElementById('supplieralamat');
+        var supplierkota = document.getElementById('supplierkota');
+        var suppliertelp = document.getElementById('suppliertelp');
+        var supplierkontak = document.getElementById('supplierkontak');
+        var supplierstakota = document.getElementById('supplierstakota');
+        var suppliernpwp=document.getElementById('suppliernpwp');
+        var supplierpkp=document.getElementById('supplierpkp');
+        var supplierkodeacc = document.getElementById('supplierkodeacc');
+
+        supplierkode.setAttribute('readonly','true');
+        supplierkode.value ='{{data.supplierkode}}';
+        suppliernama.value ='{{data.suppliernama}}';
+        supplieralamat.value ='{{data.supplieralamat}}';
+        supplierkota.value ='{{data.supplierkota}}';
+        suppliertelp.value ='{{data.suppliertelp}}';
+        supplierkontak.value ='{{data.supplierkontak}}';
+        supplierkodeacc.value ='{{data.supplierkodeacc}}';
+        supplierstakota.value ='{{data.supplierstakota}}';
+        suppliernpwp.value ='{{data.suppliernpwp}}';
+        supplierpkp.value ='{{data.supplierpkp}}'; 
+          {% endif %}
+}
+
+</script>{% endblock js %}

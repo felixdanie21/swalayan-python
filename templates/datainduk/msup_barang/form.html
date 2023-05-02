@@ -1,0 +1,117 @@
+{% extends 'layouts/base.html' %} 
+{% block title %}{{judul}}{% endblock title %}
+{% block css %}{% endblock css %}
+{% block content-title %}{{judul}}{% endblock content-title %} 
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-4 content-size">
+      <!-- Default box -->
+      <div class="card">
+        <!-- form start -->
+        <form action="{% url 'msup_barang_post' method %}" method="POST" enctype="multipart/form-data" class="form-horizontal">
+          {% csrf_token %}
+          <div class="card-body">
+            <div class="form-group row">
+              <label
+                for="input"
+                class="col-sm-4 col-form-label font-weight-normal text-sm-right"
+                >Kode Supplier</label
+              >
+              <div class="col-sm-6">
+                <select class="form-control"name="supplierkode" id="supplierkode"required>
+                <option value=""disabled selected>--PILIH--</option>
+                {%for supplier in supplierkode %}
+                <option value="{{supplier.supplierkode}}" >{{supplier.supplierkode}}</option>
+                {%endfor%}
+              </select>
+              </div>
+            </div>     
+            
+            </div>
+            <div class="form-group row">
+              <label
+                for="input"
+                class="col-sm-4 col-form-label font-weight-normal text-sm-right"
+                >Kode Barang</label
+              >
+              <div class="col-sm-6">
+                <select class="form-control"name="barangkode" id="barangkode"required>
+                <option value=""disabled selected>--PILIH--</option>
+                {%for barangs in barang  %}
+                <option value="{{barangs.barangkode}}" >{{barangs.barangkode}}</option>
+                {%endfor%}
+              </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label
+                for="input"
+                class="col-sm-4 col-form-label font-weight-normal text-sm-right"
+                >Barang Supplier Harga Sesudah PPN</label
+              >
+              <div class="col-sm-6">
+                <input
+                  type="nominal"
+                  class="form-control "
+                  name="brgsupphsppn"
+                  id="brgsupphsppn"
+                  maxlength="40"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label
+                for="input"
+                class="col-sm-4 col-form-label font-weight-normal text-sm-right"
+                >Barang Supplier Harga Sebelum PPN</label
+              >
+              <div class="col-sm-6">
+                <input
+                  type="nominal"
+                  class="form-control "
+                  name="brgsupphbppn"
+                  id="brgsupphbppn"
+                  maxlength="40"
+                  required
+                />
+              </div>
+            </div>
+            <hr />
+          <div class="row">
+                <div class="col-12 d-flex justify-content-end">
+                    <a href="{% url 'msup_barang' %}" type="button" class="btn btn-secondary mr-1"><i class="fas fa-angle-left"></i> KEMBALI</a>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> PROSES</button>
+                </div>
+            </div>
+        
+          </div>
+          <!-- /.card-footer -->
+        </form>
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
+</div>
+{% endblock content %} {% block js %}<script>
+window.onload=function (){
+    inputType()
+    {% if method == 'edit' %}
+        var supplierkode = document.getElementById('supplierkode');
+        var barangkode = document.getElementById('barangkode');
+        var brgsupphsppn = document.getElementById('brgsupphsppn');
+        var brgsupphbppn = document.getElementById('brgsupphbppn');
+
+        
+        supplierkode.setAttribute('readonly','true');
+        supplierkode.value ='{{data.supplierkode}}';
+        barangkode.value = '{{data.barangkode}}';
+        brgsupphbppn.value = '{{data.brgsupphbppn}}';
+        brgsupphsppn.value = '{{data.brgsupphsppn}}';
+
+    {% endif %}
+}
+
+</script>
+{% endblock js %}

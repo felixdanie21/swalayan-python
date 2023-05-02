@@ -1,0 +1,102 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}{{judul}}{% endblock title %}
+
+{% block css %}{% endblock css %}
+
+{% block content-title %}{{judul}}{% endblock content-title %}
+
+{% block content-back %}{% endblock content-back %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div style="overflow: auto;height: 78vh" class="col-sm-10 content-size">
+            <table id="idtable" style="font-size:15px" class="table table-sm table-bordered bg-light">
+                <thead class="bg-primary" style="position: sticky;top:0;z-index:2;">
+                    <tr>
+                        <th class="text-center text-uppercase align-middle">Kode Supplier</th>
+                        <th class="text-center text-uppercase align-middle">Nama Supplier</th>
+                        <th class="text-center text-uppercase align-middle">Alamat Supplier</th>
+                        <th class="text-center text-uppercase align-middle">Kota Supplier</th>
+                        <th class="text-center text-uppercase align-middle">No Telepon Supplier</th>
+                        <th class="text-center text-uppercase align-middle">Kontak Supplier</th>
+                        <th class="text-center text-uppercase align-middle">Kode Acc Supplier</th>
+                        <th class="text-center text-uppercase align-middle">Status Kota Supplier</th>
+                        <th class="text-center text-uppercase align-middle">NPWP Supplier</th>
+                        <th class="text-center text-uppercase align-middle">PKP Supplier</th>
+                        <th class="text-center text-uppercase align-middle">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for supplier in msupplier %}
+                    <tr>
+                        <td>{{supplier.supplierkode}}</td>
+                        <td>{{supplier.suppliernama}}</td>
+                        <td>{{supplier.supplieralamat}}</td>
+                        <td>{{supplier.supplierkota}}</td>
+                        <td>{{supplier.suppliertelp}}</td>
+                        <td>{{supplier.supplierkontak}}</td>
+                        <td>{{supplier.supplierkodeacc}}</td>
+                        <td>{{supplier.supplierstakota}}</td>
+                        <td>{{supplier.suppliernpwp}}</td>
+                        <td>{{supplier.supplierpkp}}</td>
+                        <td><a href="{% url 'msup_supplier_form' 'edit'%}?supplierkode={{supplier.supplierkode}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                            <a href="{% url 'msup_supplier_delete' supplier.supplierkode %}"onclick="return confirm('Apakah Data Ini akan di hapus ? ={{ supplier.supplierkode }}')"class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                    </tr>
+                    {%endfor%}
+                                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script>
+    $(function () {
+        $("#idtable").DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": false,
+            "info": false,
+            "autoWidth": false,
+            "responsive": true,
+            "buttons": [{
+                className: 'mr-2 btn-primary',
+                text: 'TAMBAH <i class="fas fa-plus" ></i>',
+                action: function(e, dt, node, config) {
+                    window.location.href = '{% url "msup_supplier_form" "tambah"%}'
+                }
+            },"csv", "excel", "pdf", "print"]
+        }).buttons().container().appendTo('#idtable_wrapper .col-md-6:eq(0)');
+
+        $(document).ready(function() {
+    $('#modalDelete').on('show.bs.modal', function(e) {
+        var href = $(e.relatedTarget).data('href');
+        $("#btnDelete").attr("href", href);
+    });
+
+    $('#btnDelete').click(function() {
+        $.ajax({
+        type: 'POST',
+        url: $(this).attr('href'),
+        beforeSend: function(xhr, settings) {
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+        },
+        success: function(response) {
+            $('#modalDelete').modal('hide');
+          // refresh page
+        location.reload();
+        },
+        error: function(xhr, status, error) {
+                alert(xhr.responseText);
+        }
+    });
+    return false;
+    });
+});
+    });
+</script>
+{% endblock js %}

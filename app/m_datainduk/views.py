@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from app.decorators import login_required
 from app.utilities import ambil_menu
-from app.models import Msatuan,Mbrgjns,Mpabrik,Mgroup,Mbarang
+from app.models import Msatuan,Mbrgjns,Mpabrik,Mgroup,Mbarang,Msupplier,Mbrgsupp
 from django.contrib import messages
 import json
 
@@ -305,7 +305,7 @@ def mbrg_databarang_form(request, method):
         'judul':judul
     }
     return render(request,'datainduk/mbrg_databarang/form.html',context)
-
+@login_required()
 def mbrg_databarang_post(request,method):
     if method == 'tambah':
         brgnama= request.POST['brgnama']
@@ -361,7 +361,166 @@ def mbrg_databarang_post(request,method):
         barang.save()
         messages.success(request,'Barang Berhasil di ubah')
     return redirect('mbrg_databarang')
+@login_required()
 def mbrg_databarang_delete(request ,barangkode):
     Mbarang.objects.get(barangkode=barangkode).delete()
     messages.success(request,'Data Barang Telah Dihapus')
     return redirect('mbrg_databarang')
+@login_required()
+def msup_supplier(request):
+
+    judul = 'Data Supplier'
+    data=Msupplier.objects.all()
+    context = {
+        'dbmenu': ambil_menu('c'),
+        'parent_segment': 'C020000',
+        'segment': 'C020100',
+        'msupplier':data,
+        'judul':judul
+    }
+    return render(request,'datainduk/msup_supplier/index.html', context)
+
+@login_required()
+def msup_supplier_form(request, method):
+    if method == 'tambah':
+        data=[]
+        judul='Tambah Data Supplier'
+    elif method=='edit':
+        kodesupplier=request.GET['supplierkode']
+        data=Msupplier.objects.get(supplierkode=kodesupplier)
+        judul='Edit Data Supplier'
+    context = {
+        'dbmenu': ambil_menu('c'),
+        'parent_segment': 'C010000',
+        'segment': 'C010100',
+        'data':data,
+        'method': method,
+        'judul':judul
+    }
+    return render(request,'datainduk/msup_supplier/form.html',context)
+def msup_supplier_post(request,method):
+    if method == 'tambah':
+        supplierkode = request.POST['supplierkode']
+        suppliernama = request.POST['suppliernama']
+        supplieralamat = request.POST['supplieralamat']
+        supplierkota = request.POST['supplierkota']
+        supplierkodeacc= request.POST['supplierkodeacc']
+        suppliertelp = request.POST['suppliertelp']
+        supplierkontak = request.POST['supplierkontak']
+        suppliernpwp = request.POST['suppliernpwp']
+        supplierstakota = request.POST['supplierstakota']
+        supplierpkp = request.POST['supplierpkp']
+        if Msupplier.objects.filter(supplierkode=supplierkode).exists():
+            messages.error(request,'Kode Supplier sudah di gunakan')
+            return redirect('msup_supplier')
+        else:
+            tambah=Msupplier(supplierkode=supplierkode,suppliernama=suppliernama,supplieralamat=supplieralamat,supplierkota=supplierkota,supplierkodeacc=supplierkodeacc,suppliernpwp=suppliernpwp,supplierkontak=supplierkontak,suppliertelp=suppliertelp,supplierpkp=supplierpkp,supplierstakota=supplierstakota)
+            tambah.save()
+            messages.success(request,'Data Supplier berhasil di tambahkan')
+            return redirect('msup_supplier')
+    elif method =='edit':
+        
+        supplierkode = request.POST['supplierkode']
+        suppliernama = request.POST['suppliernama']
+        supplieralamat = request.POST['supplieralamat']
+        supplierkota = request.POST['supplierkota']
+        supplierkodeacc= request.POST['supplierkodeacc']
+        suppliertelp = request.POST['suppliertelp']
+        supplierkontak = request.POST['supplierkontak']
+        suppliernpwp = request.POST['suppliernpwp']
+        supplierstakota = request.POST['supplierstakota']
+        supplierpkp = request.POST['supplierpkp']
+        
+        supplier=Msupplier.objects.get(supplierkode = supplierkode)
+        
+        supplier.supplierkode = supplierkode
+        supplier.suppliernama = suppliernama
+        supplier.supplieralamat = supplieralamat
+        supplier.supplierkota = supplierkota
+        supplier.supplierkodeacc = supplierkodeacc
+        supplier.supplierkontak = supplierkontak
+        supplier.suppliertelp = suppliertelp
+        supplier.supplierstakota = supplierstakota
+        supplier.suppliernpwp = suppliernpwp
+        supplier.supplierpkp = supplierpkp
+
+        supplier.save()
+        messages.success(request,'Data Supplier berhasil diubah')
+        return redirect('msup_supplier')
+@login_required()
+def msup_supplier_delete(request,supplierkode):
+    Msupplier.objects.get(supplierkode=supplierkode).delete()
+    messages.success(request,'Data supplier berhasil di hapus')
+    return redirect('msup_supplier')
+@login_required()
+def msup_barang (request):
+    judul='Data Supplier Barang'
+    data=Mbrgsupp.objects.all()
+    context = {
+        'dbmenu': ambil_menu('c'),
+        'parent_segment': 'C020000',
+        'segment': 'C020200',
+        'mbrgsupp':data,
+        'judul':judul
+    }
+    return render(request,'datainduk/msup_barang/index.html', context)
+@login_required()
+def msup_barang_form(request, method):
+    if method == 'tambah':
+        data=[]
+        supplierkode=Msupplier.objects.all()
+        judul ='Tambah Data Supplier Barang'
+        barang=Mbarang.objects.all()
+    elif method == 'edit':
+        judul = 'Edit Data Supplier Barang'
+        supplier=request.GET['supplierkode']
+        data = Mbrgsupp.objects.get(supplierkode=supplier)
+        supplierkode = Msupplier.objects.all()
+        barang = Mbarang.objects.all()
+    context = {
+        'dbmenu': ambil_menu('c'),
+        'parent_segment': 'C020000',
+        'supplierkode':supplierkode,
+        'segment': 'C020200',
+        'method': method,
+        'judul':judul,
+        'barang': barang,
+        'data': data
+    }
+    return render(request,'datainduk/msup_barang/form.html',context)
+@login_required()
+def msup_barang_post(request,method):
+    if method =='tambah':
+        supplierkode=request.POST['supplierkode']
+        barangkode=request.POST['barangkode']
+        brgsupphbppn = request.POST['brgsupphbppn'].replace(",", "")
+        brgsupphsppn = request.POST['brgsupphsppn'].replace(",", "")
+        if Mbrgsupp.objects.filter(supplierkode=supplierkode).exists():
+            messages.error(request,'Kode Supplier sudah di gunakan')
+            return redirect('msup_barang')
+        else:
+            tambah = Mbrgsupp(supplierkode=supplierkode,barangkode=barangkode,brgsupphbppn=int(brgsupphbppn),brgsupphsppn=int(brgsupphsppn))
+            tambah.save()
+            messages.success(request,'Data Supplier Barang Berhasil Di Tambahkan')
+            return redirect('msup_barang')
+    elif method == 'edit':
+        supplierkode = request.POST['supplierkode']
+        barangkode = request.POST['barangkode']
+        brgsupphbppn = request.POST['brgsupphbppn'].replace(",", "")
+        brgsupphsppn = request.POST['brgsupphsppn'].replace(",", "")
+
+        barang=Mbrgsupp.objects.get(supplierkode = supplierkode)
+
+        barang.supplierkode = supplierkode
+        barang.barangkode = barangkode
+        barang.brgsupphbppn = int(brgsupphbppn)
+        barang.brgsupphsppn = int(brgsupphsppn)
+        barang.save()
+        messages.success(request,'Data Supplier Barang Berhasil Di Ubah')
+        return redirect('msup_barang')
+@login_required()
+def msup_barang_delete(request,supplierkode):
+    Mbrgsupp.objects.get(supplierkode=supplierkode).delete()
+    messages.success(request,'Data Supplier Barang berhasil di hapus')
+    return redirect('msup_barang')
+

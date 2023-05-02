@@ -6,27 +6,29 @@
 
 {% block content-title %}{{judul}}{% endblock content-title %}
 
-{% block content-back %}{% endblock content-back %}
-
 {% block content %}
 <div class="container-fluid">
     <div class="row">
-        <div style="overflow: auto;height: 78vh" class="col-sm-7 content-size">
+        <div style="overflow: auto;height: 78vh" class="col-sm-8 content-size">
             <table id="idtable" style="font-size:16px" class="table table-sm table-bordered bg-light">
                 <thead class="bg-primary" style="position: sticky;top:0;z-index:2;">
                     <tr>
-                        <th class="text-center text-uppercase align-middle">Kode group</th>
-                        <th class="text-center text-uppercase align-middle">Nama group</th>
+                        <th class="text-center text-uppercase align-middle">Kode Supplier</th>
+                        <th class="text-center text-uppercase align-middle">Kode Barang</th>
+                        <th class="text-center text-uppercase align-middle">Barang Supplier Sebelum ppn</th>
+                        <th class="text-center text-uppercase align-middle">Barang Supplier Sesudah ppn</th>
                         <th class="text-center text-uppercase align-middle">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {%for group in mgroup %}
+                    {%for barang in mbrgsupp %}
                     <tr>
-                        <td>{{group.groupkode}}</td>
-                        <td>{{group.groupnama}}</td>
-                        <td><a href="{% url 'mbrg_group_form' 'edit'%}?groupkode={{group.groupkode}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                              <a href="{% url 'mbrg_group_delete' group.groupkode %}"onclick="return confirm('Apakah Data Ini akan di hapus ? ={{ group.groupkode }}')"class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                        <td>{{barang.supplierkode}}</td>
+                        <td>{{barang.barangkode}}</td>
+                        <td>{{barang.brgsupphbppn}}</td>
+                        <td>{{barang.brgsupphsppn}}</td>
+                        <td><a href="{% url 'msup_barang_form' 'edit'%}?supplierkode={{barang.supplierkode}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                            <a href="{% url 'msup_barang_delete' barang.supplierkode%}" onclick="return confirm('Apakah Data Ini akan di hapus ? = {{ barang.supplierkode }}')" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                             </tr>
                     {%endfor%}
                                 </tbody>
@@ -51,10 +53,11 @@
                 className: 'mr-2 btn-primary',
                 text: 'TAMBAH <i class="fas fa-plus" ></i>',
                 action: function(e, dt, node, config) {
-                    window.location.href = '{% url "mbrg_group_form" "tambah"%}'
+                    window.location.href = '{% url "msup_barang_form" "tambah"%}'
                 }
             },"csv", "excel", "pdf", "print"]
         }).buttons().container().appendTo('#idtable_wrapper .col-md-6:eq(0)');
-    });
+});
 </script>
 {% endblock js %}
+
