@@ -27,19 +27,48 @@
                         <td>{{barang.barangkode}}</td>
                         <td>{{barang.brgsupphbppn}}</td>
                         <td>{{barang.brgsupphsppn}}</td>
-                        <td><a href="{% url 'msup_barang_form' 'edit'%}?supplierkode={{barang.supplierkode}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                            <a href="{% url 'msup_barang_delete' barang.supplierkode%}" onclick="return confirm('Apakah Data Ini akan di hapus ? = {{ barang.supplierkode }}')" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                            </tr>
+                        <td><a href="{% url 'msup_barang_form' 'edit'%}?supplierkode={{barang.supplierkode}}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                        <button linkhapus="{% url 'msup_barang_delete' barang.supplierkode %}"
+                        id="buttonhapus{{ barang.supplierkode }}" onclick="modalHapus('{{ barang.supplierkode }}')"
+                        class="btn btn-sm btn-dark"><i class="fas fa-trash"></i></button>  </tr>
                     {%endfor%}
                                 </tbody>
             </table>
         </div>
     </div>
 </div>
+<!-- MODAL HAPUS -->
+<div class="modal fade" id="modalhapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-question-circle"></i> KONFIRMASI</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Anda yakin ingin menghapus data?
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-dismiss="modal">TIDAK</button>
+        <a id="linkhapus" type="button" class="btn btn-primary">YA</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock content %}
 
 {% block js %}
 <script>
+    function modalHapus(supplierkode) {
+    var linkhapus = document.getElementById('linkhapus');
+    var buttonhapus = document.getElementById('buttonhapus' + supplierkode);
+    linkhapus.setAttribute('href', buttonhapus.getAttribute('linkhapus'));
+    $('#modalhapus').modal('show');
+    }
     $(function () {
         $("#idtable").DataTable({
             "paging": false,
